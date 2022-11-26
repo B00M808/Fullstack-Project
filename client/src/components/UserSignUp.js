@@ -1,4 +1,8 @@
-import React from 'react'
+import React from "react";
+
+/*
+//See Step 10 Display validation errors
+*/
 
 const UserSignUp = () => {
   return (
@@ -6,4 +10,4 @@ const UserSignUp = () => {
   )
 }
 
-export default UserSignUp
+export default UserSignUp;

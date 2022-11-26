@@ -1,9 +1,16 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const CreateCiurse = () => {
+/* 
+//See Step 10 Display validation errors
+
+*/
+
+
+
+const CreateCourse = () => {
   return (
     <div>CreateCiurse</div>
   )
 }
 
-export default CreateCiurse
+export default CreateCourse;

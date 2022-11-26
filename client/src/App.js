@@ -1,33 +1,32 @@
-import Courses from "./components/Courses.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CourseDetail from "./components/CourseDetail.js";
+import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import withContext from "./Context";
 
+import Header from "./components/Header";
+import Courses from "./components/Courses";
+import UserSignIn from "./components/UserSignIn";
+import CourseDetail from "./components/CourseDetail";
+import UserSignOut from "./components/UserSignOut";
 
-//Structure of component/Stateful component
-import { useState } from "react";
-function App() {
+const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext(Courses);
+const UserSignInWithContext = withContext(UserSignIn);
+const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignOutWithContext = withContext(UserSignOut);
+
+const App = () => {
   return (
-    <BrowserRouter>
+    <React.Fragment>
+      <HeaderWithContext />
+
       <Routes>
-        <Route path="/" element={<Courses />} />
-        <Route path="/courses/:id" element={<CourseDetail />} />
+        <Route path="/" element={<CoursesWithContext />} />
+        <Route path="courses/:id" element={<CourseDetailWithContext />} />
+        <Route path="/signin" element={<UserSignInWithContext />} />
+        <Route path="/signout" element={<UserSignOutWithContext />} />
       </Routes>
-    </BrowserRouter>
+    </React.Fragment>
   );
-}
+};
 
-/*
-//Object {}
-import './App.css';
-import {useState} from "react"
-import CourseDetail from './CourseDetail';
-function App() {
-  const [courses, setCourses] = useState({})
-  return (
-    <div className="App">
-      
-    </div>
-  );
-}
-*/
 export default App;
