@@ -55,6 +55,7 @@ const Courses = ({ context }) => {
 
 /* 
     //map through ??
+    Use map to create an array, adding all the courses from the database
     */
 
 export default Courses;

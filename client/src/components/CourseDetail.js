@@ -17,6 +17,7 @@ const CourseDetail = ({ context }) => {
 
 /* 
 CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
+//Statefull
 
 //Mounted
 
@@ -25,6 +26,21 @@ CourseDetail - This component provides the "Course Detail" screen by retrieving 
 //See Step 11 Add support for rendering markdown formatted text
 */
 
+componentDidMount() {
+  const context = this.props;
+  const id = this.props.match.params;
+  context.data.getCourse(id)
+  .then(course => {
+    if (course) {
+      this.setState({
+        courseDetail: course
+      });
+    } else {
+      this.props.history.push()
+    }
+  })
+}
 
+//Delete Button 
 
 export default CourseDetail;
