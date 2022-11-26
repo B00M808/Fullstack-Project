@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import Courses from "./components/Courses.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CourseDetail from "./components/CourseDetail.js";
 
+
+//Structure of component/Stateful component
+import { useState } from "react";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Courses />} />
+        <Route path="/courses/:id" element={<CourseDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
+/*
+//Object {}
+import './App.css';
+import {useState} from "react"
+import CourseDetail from './CourseDetail';
+function App() {
+  const [courses, setCourses] = useState({})
+  return (
+    <div className="App">
+      
+    </div>
+  );
+}
+*/
 export default App;
