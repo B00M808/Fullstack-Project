@@ -1,4 +1,3 @@
-import { response } from "express";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UpdateCourse from './UpdateCourse';
 /*
@@ -7,7 +6,7 @@ The component renders a form????(do I make another file titled Form) allowing a 
 //Step 10 Display validation errors
 //Statefull
 */
-
+/*
 //State is setup 
 const updateData = {
   title: course.title,
@@ -66,3 +65,4 @@ return (
 )
 
 export default UpdateCourse;
+*/

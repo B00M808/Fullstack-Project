@@ -7,7 +7,7 @@ import React, {useState} from "react";
 //Statefull
 */
 
-
+/*
 
 const CreateCourse = () => {
   return (
@@ -85,3 +85,4 @@ return (
 }
 
 export default CreateCourse;
+*/

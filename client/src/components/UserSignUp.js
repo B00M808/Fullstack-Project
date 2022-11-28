@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 //See Step 10 Display validation errors
 The "Sign Up" displays validation errors returned from the REST API.
 */
-
+/*
 const UserSignUp = () => {
   submit = () => {
     ...
@@ -29,3 +29,14 @@ const UserSignUp = () => {
 }
 
 export default UserSignUp;
+*/
+
+import React from 'react'
+
+const UserSignUp = () => {
+  return (
+    <div>UserSignUp</div>
+  )
+}
+
+export default UserSignUp
