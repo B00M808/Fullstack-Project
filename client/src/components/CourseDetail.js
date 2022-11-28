@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
+
+/* 
+CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
+
+//The CourseDetail component only renders the "Update Course" and "Delete Course" buttons if:
+There's an authenticated user.
+The authenticated user's ID matches that of the user who owns the course.
+
+//Statefull
+//Mount to catch course details
+//See Step 9 Restrict access to updating and deleting courses
+//See Step 11 Add support for rendering markdown formatted text
+/The "Course Detail" screen renders the course description and materialsNeeded properties as markdown formatted text. ??
+*/
+//State is setup
 const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
   const { id } = useParams();
@@ -23,12 +39,23 @@ const CourseDetail = ({ context }) => {
     }).catch((err) => console.log(err));
   }
 
-  return  <main>
-  <div className="actions--bar">
+  return (
+  <main>
+  <div className="actions--bar"> 
+  {
+    (()) => {
+      if (authUser) {
+        const authUserId = context.authenticatedUser.id;
+        if (authUserId === userId) {
+          return ()
+        }
+      };
+    };
+  };
       <div className="wrap">
-          <Link className="button" to="#">Update Course</Link>
+          <Link className="button" to="{'/courses/id/update'}">Update Course</Link>
           <button className="button" id={course?.id} onClick={handleDelete}>Delete Course</button>
-          <Link className="button button-secondary" to="#">Return to List</Link>
+          <Link className="button button-secondary" to="/">Return to List</Link>
       </div>
   </div>
   
@@ -42,6 +69,7 @@ const CourseDetail = ({ context }) => {
 
                   <p>{course?.description}</p>
               </div>
+              <ReactMarkdown source ={description} /> 
               <div>
                   <h3 className="course--detail--title">Estimated Time</h3>
                   <p>{course?.estimatedTime}</p>
@@ -50,24 +78,16 @@ const CourseDetail = ({ context }) => {
                   <ul className="course--detail--list">
                       <li>{course?.materialsNeeded}</li>
                   </ul>
+                  <ReactMarkdown source ={materialsNeeded} /> 
               </div>
           </div>
       </form>
   </div>
 </main>
-};
 
-/* 
-CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
 
-//Statefull
 
-//Mounted
 
-//See Step 9 Restrict access to updating and deleting courses
-
-//See Step 11 Add support for rendering markdown formatted text
-*/
 
 /*
 componentDidMount() {

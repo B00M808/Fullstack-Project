@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 Create the following stateful components:
 Courses - This component provides the "Courses" screen by retrieving the list of courses from the REST API's /api/courses route and rendering a list of courses. Each course needs to link to its respective "Course Detail" screen. This component also renders a link to the "Create Course" screen.
 //Mounted
+//Statefull
 */
+/* 
+    //map through ??
+    Use map to create an array, adding all the courses from the database
+    */
+
 
 const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
@@ -52,10 +58,5 @@ const Courses = ({ context }) => {
     </main>
   );
 };
-
-/* 
-    //map through ??
-    Use map to create an array, adding all the courses from the database
-    */
 
 export default Courses;

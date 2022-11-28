@@ -2,6 +2,11 @@ import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 /*
+Statefull
+A signIn() method is globally available that:
+
+Authenticates a user using their email address and password.
+Persists the authenticated user's information (including their password) in the global state.
 const UserSignIn = () => {
   return (
     <div>UserSignIn</div>
