@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 /*
 //Statefull
@@ -32,11 +32,13 @@ export default UserSignUp;
 */
 
 import React from 'react'
+import Data from './Data';
 
-const UserSignUp = () => {
+const UserSignUp = ({context}) => {
   return (
     <div>UserSignUp</div>
   )
 }
+
 
 export default UserSignUp

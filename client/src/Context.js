@@ -22,6 +22,8 @@ export class Provider extends Component {
         signOut: this.signOut,
       }
     }
+    //Passed context to the Provider,Create a value object to provide the utility methods of the class Data. 
+    //Provider allows its child components to gain access, value represents an object containing the context to be shared throughout the component tree
     return (
       <Context.Provider value={value}>
         {this.props.children}
@@ -29,8 +31,8 @@ export class Provider extends Component {
     )
   };
 
-  signIn = async (emailAddress, password) => { //emailAddress, password ??
-    const user = await this.data.getUser(emailAddress, password); //emailAddress, password ??
+  signIn = async (emailAddress, password) => { 
+    const user = await this.data.getUser(emailAddress, password); 
     if (user !== null) {
       user.password = password;
       this.setState(() => {
@@ -53,7 +55,9 @@ export class Provider extends Component {
  * @param {class} Component - A React component.
  * @returns {function} A higher-order component.
  */
-//Example
+//withContext automatically connects the component passed to it to all actions and context changes, further, it will share user authentication data and actions throughout the app.
+
+
 export default function withContext(Component) {
   return function ContextComponent(props) {
     return (

@@ -1,6 +1,6 @@
-import { useState, useRef, useContext } from "react";
+import { useRef, useState, Context } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from '../App';
+//import { UserContext } from '../App';
 /*
 Statefull
 A signIn() method is globally available that:
@@ -10,7 +10,7 @@ Persists the authenticated user's information (including their password) in the 
 */
 
 const UserSignIn = ({ context }) => {
-  const {auth, setAuth} = useContext(UserContext);
+  const {auth, setAuth} = Context(context);
   console.log(auth);
   const emailAddress = useRef(null);
   const password = useRef(null);
@@ -21,7 +21,7 @@ const UserSignIn = ({ context }) => {
     await context.actions
       .signIn(emailAddress.current.value, password.current.value)
       .then(
-        setAuth(true)
+        setAuth(true) //creating an error
       ).then(navigate("/"));
   };
 

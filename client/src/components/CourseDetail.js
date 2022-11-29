@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-// import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown'
 
 /* 
 CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
@@ -58,17 +58,16 @@ const CourseDetail = ({ context }) => {
               <p>by {course?.User?.firstName} {course?.User?.lastName}</p>
 
               <p>{course?.description}</p>
+              <ReactMarkdown children={course?.description} />
             </div>
-            {/* <ReactMarkdown source={course?.description} /> */}
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
               <p>{course?.estimatedTime}</p>
 
               <h3 className="course--detail--title">Materials Needed</h3>
-              <ul className="course--detail--list">
-                <li>{course?.materialsNeeded}</li>
-              </ul>
-              {/* <ReactMarkdown source={course?.materialsNeeded} /> */}
+              <div className="course--detail--list">
+                <ReactMarkdown children={course?.materialsNeeded} />
+              </div>
             </div>
           </div>
         </form>
