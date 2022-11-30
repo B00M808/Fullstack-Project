@@ -75,29 +75,23 @@ const App = () => {
             <Route path="/" element={<CoursesWithContext />} />
             <Route
               path="courses/:id"
-              element={<PrivateRoute Component={CourseDetailWithContext} />}
-            />
+              element={<PrivateRoute Component={CourseDetailWithContext} />} />
             <Route
               path="/signin"
-              element={<PrivateRoute Component={UserSignInWithContext} />}
-            />
+              element={<PrivateRoute Component={UserSignInWithContext} />} />
             <Route
               path="/signup"
-              element={<PrivateRoute Component={UserSignUpWithContext} />}
-            />
+              element={<PrivateRoute Component={UserSignUpWithContext} />} />
             <Route
               path="/signout"
-              element={<PrivateRoute Component={UserSignOutWithContext} />}
-            />
+              element={<PrivateRoute Component={UserSignOutWithContext} />} />
             <Route path="courses/:id" element={withContext(CourseDetail)} />
             <Route
               path="/courses/create"
-              element={<CreateCoursewithContext />}
-            />
+              element={<CreateCoursewithContext />} />
             <Route
               path="courses/:id/update"
-              element={withContext(UpdateCourse)}
-            />
+              element={withContext(UpdateCourse)} />
             <Route element={withContext(PrivateRoute)} />
             <Route path="/signin" element={withContext(UserSignIn)} />
             <Route path="/signout" element={withContext(UserSignOut)} />

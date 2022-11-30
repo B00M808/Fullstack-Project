@@ -16,11 +16,6 @@ const Header = () => {
         <nav>
           <ul className="header--signedout">
             <li>
-              <Link className="signup" to="/signup">
-                Sign Up
-              </Link>
-            </li>
-            <li>
               <Link className="signin" to="/signin">
                 Sign In
               </Link>

@@ -30,11 +30,25 @@ import axios from "axios";
     });
   };
 */
+
+const CreateCourse = ({ context }) => {
+  const [course, setCourse] = useState([]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const course = {
+
+    }
+  }
+
   return (
     <main>
       <div className="wrap">
         <h2>Create Course</h2>
         {/* {valErrors} */}
+        <div className="validation--errors">
+          <h3>Validation Errors</h3>
+          </div>
         <form onSubmit={handleSubmit}>
           <div className="main--flex">
             <div>

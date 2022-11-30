@@ -33,7 +33,7 @@ const CourseDetail = ({ context }) => {
   //get delete func
   const handleDelete = (e) => {
     context.data
-      .deleteCourse(id)
+      .deleteCourse()
     .then(res => {
       console.log("deleted")
     }).catch((err) => console.log(err));
@@ -42,7 +42,6 @@ const CourseDetail = ({ context }) => {
   return (
     <main>
       <div className="actions--bar">
-
         <div className="wrap">
           <Link className="button" to="{'/courses/id/update'}">Update Course</Link>
           <button className="button" id={course?.id} onClick={handleDelete}>Delete Course</button>
