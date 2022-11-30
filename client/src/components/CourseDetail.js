@@ -13,7 +13,7 @@ The authenticated user's ID matches that of the user who owns the course.
 //Mount to catch course details
 //See Step 9 Restrict access to updating and deleting courses
 //See Step 11 Add support for rendering markdown formatted text
-/The "Course Detail" screen renders the course description and materialsNeeded properties as markdown formatted text. ??
+/The "Course Detail" screen renders the course description and materialsNeeded properties as markdown formatted text. 
 */
 //State is setup
 const CourseDetail = ({ context }) => {
@@ -30,13 +30,14 @@ const CourseDetail = ({ context }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  //get delete func
   const handleDelete = (e) => {
-    fetch("/api/courses/" + e.target.id).then(res => {
-      return res.json()
-    }).then(res => {
+    context.data
+      .deleteCourse(id)
+    .then(res => {
       console.log("deleted")
     }).catch((err) => console.log(err));
-  }
+  };
 
   return (
     <main>

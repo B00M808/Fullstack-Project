@@ -1,15 +1,20 @@
-import React from "react";
-import { Outlet, useLocation, Navigate } from "react-router-dom";
-//import { UserContext } from '../App';
+import React, { useContext, useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "./App";
 
-//For auth users, Outlook renders the child routes, also utilized Navigate to redirect no auth user to the signin page
-//Outlet allows routes to be nested and extends the route
-const PrivateRoute = (props) => {
-  const targetRoute = useLocation()
-  console.log(targetRoute.Location)
+//Authenticated User allows user access but unauthorized user does not exist then redirected to sign in
+const PrivateRoute = ({Component}) => {
+  const {auth} = useContext(UserContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(!auth) {
+      navigate('/signin')
+    }
+  }, [])
+
   return (
-    props.context.authenticatedUser? <Outlet /> : <Navigate to="signin" replace={true} state={{ targetRoute: targetRoute.Location }} />
+    <><Component /></>
   )
+  
 }
-
 export default PrivateRoute;

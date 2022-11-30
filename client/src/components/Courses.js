@@ -8,20 +8,18 @@ Courses - This component provides the "Courses" screen by retrieving the list of
 //Statefull
 */
 /* 
-    //map through ??
+  
     Use map to create an array, adding all the courses from the database
     */
 
-
 const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
-
+  //Calling function
   useEffect(() => {
     context.data
       .getCourses()
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -39,7 +37,10 @@ const Courses = ({ context }) => {
             </Link>
           );
         })}
-        <Link className="course--module course--add--module">
+        <Link
+          className="course--module course--add--module"
+          to="/courses/create"
+        >
           <span className="course--add--title">
             <svg
               version="1.1"

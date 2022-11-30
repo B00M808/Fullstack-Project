@@ -4,7 +4,7 @@ import React, { useState } from "react";
 export default class Data {
   api(
     path,
-    method = 'GET',
+    method = "GET",
     body = null,
     requiresAuth = false,
     credentials = null
@@ -32,7 +32,7 @@ export default class Data {
   }
 
   async getUser(username, password) {
-    const response = await this.api('/users', 'GET', null, true, {
+    const response = await this.api("/users", "GET", null, true, {
       username,
       password,
     });
@@ -46,7 +46,7 @@ export default class Data {
   }
 
   async createUser(user) {
-    const response = await this.api('/users', 'POST', user);
+    const response = await this.api("/users", "POST", user);
     if (response.status === 201) {
       return [];
     } else if (response.status === 400) {
@@ -59,24 +59,16 @@ export default class Data {
   }
 
   async getCourses() {
-    const response = await this.api('/courses', 'GET');
+    const response = await this.api("/courses", "GET");
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else {
       throw new Error();
     }
   }
-/*404 1:36
-if (course.status === 200) {
-  return course.json().then(data => data)
-} else if (course.status === 404) {
-  return { "error": "404" }
-} else {
-  throw new Error()
-}
-*/
+
   async getCourse(id) {
-    const response = await this.api('/courses/id', 'GET');
+    const response = await this.api(`/courses/${id}`, "GET");
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else {
@@ -85,7 +77,7 @@ if (course.status === 200) {
   }
 
   async createCourse(id, username, password, body) {
-    const response = await this.api('/courses', 'POST', body, true, {
+    const response = await this.api("/courses", "POST", body, true, {
       username,
       password,
     });
@@ -101,16 +93,28 @@ if (course.status === 200) {
   }
 
   async updateCourse(courseForm, id) {
-    const course = await this.api('/courses/id', 'PUT', courseForm)
+    const course = await this.api(`/courses/${id}`, "PUT", courseForm);
     if (course.status === 204) {
-      return course.json().then( data => data)
+      return course.json().then((data) => data);
     } else if (course.status === 400) {
-        return course.json().then(data => {
-          return data.errors
-        })
+      return course.json().then((data) => {
+        return data.errors;
+      });
     } else {
-      throw new Error()
+      throw new Error();
     }
   }
-  //Delete
+
+  async deleteCourse(username, password) {
+    const course = await this.api('/courses/id', "DELETE", username, password);
+    if (course.status === 204) {
+      return course.json().then((data) => data);
+    } else if (course.status === 400) {
+      return course.json().then((data) => {
+        return data.errors;
+      });
+    } else {
+      throw new Error();
+    }
+  }
 }

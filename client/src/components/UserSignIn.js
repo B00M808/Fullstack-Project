@@ -1,5 +1,6 @@
-import { useRef, useState, Context } from "react";
+import { useRef, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 //import { UserContext } from '../App';
 /*
 Statefull
@@ -10,7 +11,7 @@ Persists the authenticated user's information (including their password) in the 
 */
 
 const UserSignIn = ({ context }) => {
-  const {auth, setAuth} = Context(context);
+  const { auth, setAuth } = useContext(UserContext);
   console.log(auth);
   const emailAddress = useRef(null);
   const password = useRef(null);
@@ -20,9 +21,8 @@ const UserSignIn = ({ context }) => {
     e.preventDefault();
     await context.actions
       .signIn(emailAddress.current.value, password.current.value)
-      .then(
-        setAuth(true) //creating an error
-      ).then(navigate("/"));
+      .then(setAuth(true))
+      .then(navigate("/"));
   };
 
   return (

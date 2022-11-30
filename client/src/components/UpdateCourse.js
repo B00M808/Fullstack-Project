@@ -1,5 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UpdateCourse from './UpdateCourse';
+import React from "react";
+
+const UpdateCourse = () => {
+  return <div>UpdateCourse</div>;
+};
+
 /*
 The component renders a form????(do I make another file titled Form) allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
 //See Step 9 Restrict access to updating and deleting courses
@@ -34,7 +38,52 @@ fetch(url, {
 }
 });
 
+const value = e.target.value;
+if (name === "courseTitle") {
+  setTitle(value);
+} else if (name === "courseDescription") {
+  setDescription(value);
+} else if (name === "estimatedTime") {
+  setEstimatedMaterialsNeeded(value);  
+} else if (name === "materialsNeeded") {
+  setMaterialsNeeded(value);
+} else {
+  return;
+}
+};
 
+const handleUpdate = (e) => {
+  e.preventDefault();
+
+  const body = {
+    title,
+    description,
+    estimatedTime,
+    materialsNeeded,
+  };
+
+  context.data
+  .updateCourse(
+    body,
+    context.authenticatedUser.emailAddress,
+    context.authenticatedUser.password
+  )
+  .then((errors) => {
+    if (errors.length > 0) {
+      setErrors(errors);
+    } else {
+      navigate("/");
+    }
+  })
+  catch((errors) => {
+    console.error(errors);
+  });
+};
+
+const handleCancel = (e) => {
+  e.preventDefault();
+  navigate("/");
+};
 return (
         <div className="wrap">
               <h2>Update Course</h2>
@@ -72,4 +121,5 @@ return (
     </div>
 )
 */
+
 export default UpdateCourse;

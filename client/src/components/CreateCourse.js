@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState, useRef, context } from "react";
+import axios from "axios";
 //import { useNavigate } from "react-router-dom"
 
 /* 
@@ -7,14 +8,98 @@ import React, {useState} from "react";
 //Statefull
 */
 
-/*
-
-const CreateCourse = () => {
+  /*
+    This is what api function does in Data
+    const options = {
+      method: 'POST',
+      url: 'http://localhost:5000/api/courses',
+      headers: {Authorization: 'Basic am9lQHNtaXRoLmNvbTpqb2VwYXNzd29yZA=='},
+      data: {
+        title: course?.title,
+        description: course?.description,
+        userId: randomNumber,
+        estimatedTime: course.estimatedTime
+      }
+    };
+    
+    // const course = {title: title.current.value, description: description.current.value, estimatedTime: estimatedTime}
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  };
+*/
   return (
-    <div>CreateCourse</div>
-  )
-}
+    <main>
+      <div className="wrap">
+        <h2>Create Course</h2>
+        {/* {valErrors} */}
+        <form onSubmit={handleSubmit}>
+          <div className="main--flex">
+            <div>
+              <label htmlFor="courseTitle">Course Title</label>
+              <input
+                id="courseTitle"
+                name="courseTitle"
+                type="text"
+                value={course.title}
+                onChange={(e) =>
+                  setCourse({ ...course, title: e.target.value })
+                }
+              />
+              <label htmlFor="courseDescription">Course Description</label>
+              <textarea
+                id="courseDescription"
+                name="courseDescription"
+                value={course.description}
+                onChange={(e) =>
+                  setCourse({ ...course, description: e.target.value })
+                }
+              ></textarea>
+            </div>
+            <div>
+              <label htmlFor="estimatedTime">Estimated Time</label>
+              <input
+                id="estimatedTime"
+                name="estimatedTime"
+                type="text"
+                value={course.estimatedTime}
+                onChange={(e) =>
+                  setCourse({ ...course, estimatedTime: e.target.value })
+                }
+              />
 
+              <label htmlFor="materialsNeeded">Materials Needed</label>
+              <textarea
+                id="materialsNeeded"
+                name="materialsNeeded"
+                value={course.materialsNeeded}
+                onChange={(e) =>
+                  setCourse({ ...course, materialsNeeded: e.target.value })
+                }
+              ></textarea>
+            </div>
+          </div>
+          <button
+            className="button button-secondary"
+            NameName="button"
+            type="submit"
+          >
+            Create Course
+          </button>
+          <button
+            className="button button-secondary"
+            onClick="event.preventDefault(); location.href='index.html';"
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    </main>
+  );
+};
+/*
 const handleCreate = () => {
   const body = {
     userId: context.authenticatedUser.id,
@@ -37,52 +122,11 @@ const handleCancel = (e) => {
   navigate('/')
 }
 
-const handleSubmit = (e) => {
-  e.preventDefault()
-  const course = {title: title.current.value, description: description.current.value, estimatedTime: estimatedTime}
-  context.data.createCourse(course)
-  .then(res => {
-    if (res.length !== 0) {
-                <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                      {res.map((error, i) => <li key={i}>(error)</li>)}
-                    </ul>
-                </div>)
-      } else {
-        navigate('/')
-      }
-  .catch(err => {
-    navigate('/error')
-  });
+
 
 return (
-  <main>
-    <div className="wrap">
-      <h2>Create Course</h2>
-      /////{valErrors}
-      <form onSubmit={handleSubmit}>
-                    <div class="main--flex">
-                        <div>
-                            <label for="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" type="text" ref={title}/>
-                            <label for="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription" ref={description}></textarea>
-                        </div>
-                        <div>
-                            <label for="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" type="text" ref={estimatedTime}/>
-
-                            <label for="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded" ref={materialsNeeded}></textarea>
-                        </div>
-                    </div>
-                    <button className="button" type="submit">Create Course</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
-                </form>
-            </div>
-        </main>
+  
   )
 }
-
-export default CreateCourse;
 */
+export default CreateCourse;
