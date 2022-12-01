@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 /*
 A Statefull component
 Utilized a signIn() method which is globally available.
-Authenticates a user using their email address and password.
+Authenticated a user using their email address and password.
 Persists the authenticated user's information (including their password) in the global state.
 FOLLOW UP on errors, see instructions
 */
@@ -49,7 +49,7 @@ const handleSubmit = async (e) => {
           </Link>
         </form>
         <p>
-          Don't have a user account? Click here to {" "}
+          Don't have a user account? Click here to
           <Link to="/signup">Sign Up</Link>!
         </p>
       </div>

@@ -36,10 +36,6 @@ const CreateCourse = ({ context }) => {
   const [course, setCourse] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const course = {
-
-    }
   }
 
   return (

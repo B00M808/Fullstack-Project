@@ -1,43 +1,8 @@
-/*
-import React, { Component, useState } from "react";
-import Data from "./Data";
-export function Provider (props) {
-  const signIn = async (emailAddress, password) => { 
-    const user = await this.data.getUser(emailAddress, password); 
-    if (user !== null) {
-      user.password = password;
-      this.setState(() => {
-        return {
-          authenticatedUser: user,
-        }
-      });
-    }
-    return user;
-  }
-//function called to update state, setAuthenticatedUser, set the data to null
+/* 
+Passed context to the Provider,Create a value object to provide the utility methods of the class Data. 
+  //Provider allows its child components to gain access, value represents an object containing the context to be shared throughout the component tree.
+  */
 
-  const signOut = () => {
-    setAuthenticatedUser(null);
-  };
-  const {authenticatedUser, setAuthenticatedUser} = useState(null); 
-  const data = new Data();
-  const value = {
-    authenticatedUser,
-    data: this.data,
-    actions: {
-      signIn,
-      signOut,
-    }
-  }
-  //Passed context to the Provider,Create a value object to provide the utility methods of the class Data. 
-  //Provider allows its child components to gain access, value represents an object containing the context to be shared throughout the component tree
-  return (
-    <Context.Provider value={value}>
-      {this.props.children}
-    </Context.Provider>
-  )
-}
-*/
 import React, { Component } from "react";
 import Data from "./Data";
 
@@ -47,7 +12,7 @@ export class Provider extends Component {
   constructor() {
     super();
     this.data = new Data();
-
+//Work with Sign In then statement will be true
     this.state = {
       authenticatedUser: null,
     };

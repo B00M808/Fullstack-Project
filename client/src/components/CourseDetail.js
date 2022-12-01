@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown";
 
 /* 
 CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
@@ -24,8 +24,8 @@ const CourseDetail = ({ context }) => {
     context.data
       .getCourse(id)
       .then((data) => {
-        console.log(data)
-        setCourse(data)
+      console.log(data);
+      setCourse(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,20 +33,35 @@ const CourseDetail = ({ context }) => {
   //get delete function
   const handleDelete = (id) => {
     context.data
-    .deleteCourse(id, context.authenticatedUser.email, context.authenticatedUser.password)
-    .then(res => {
-      navigate("/") 
-      console.log("deleted")
-    }).catch((err) => console.log(err));
+      .deleteCourse(
+        id,
+        context.authenticatedUser.email,
+        context.authenticatedUser.password
+      )
+      .then((res) => {
+        navigate("/");
+        console.log("deleted");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <main>
       <div className="actions--bar">
         <div className="wrap">
-          <Link className="button" to="{'/courses/id/update'}">Update Course</Link>
-          <button className="button" id={course?.id} onClick={() => handleDelete(id)}>Delete Course</button>
-          <Link className="button button-secondary" to="/">Return to List</Link>
+          <Link className="button" to={`/courses/${id}/update`}>
+            Update Course
+          </Link>
+          <button
+          className="button"
+          id={course?.id}
+          onClick={() => handleDelete(id)}
+          >
+            Delete Course
+          </button>
+          <Link className="button button-secondary" to="/">
+            Return to List
+          </Link>
         </div>
       </div>
 
@@ -56,9 +71,9 @@ const CourseDetail = ({ context }) => {
           <div className="main--flex">
             <div>
               <h4 className="course--name">{course?.title}</h4>
-              <p>by {course?.User?.firstName} {course?.User?.lastName}</p>
-
-              <p>{course?.description}</p>
+              <p>
+                by {course?.User?.firstName} {course?.User?.lastName}
+              </p>
               <ReactMarkdown children={course?.description} />
             </div>
             <div>
@@ -74,6 +89,6 @@ const CourseDetail = ({ context }) => {
         </form>
       </div>
     </main>
-  )
-}
-  export default CourseDetail;
+  );
+};
+export default CourseDetail;

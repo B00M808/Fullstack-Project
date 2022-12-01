@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CourseDetail from "./components/CourseDetail";
@@ -19,15 +19,13 @@ const CourseDetailWithContext = withContext(CourseDetail);
 const UserSignOutWithContext = withContext(UserSignOut);
 const UserSignUpWithContext = withContext(UserSignUp);
 const CreateCoursewithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 
 export const UserContext = createContext();
 const App = () => {
 
   return (
-    /*
-    Because done as class component void
-    <UserContext.Provider value={{auth, setAuth}}>
-    */
+    
     <React.Fragment>
       <BrowserRouter>
         <Provider>
@@ -35,13 +33,14 @@ const App = () => {
           <Routes>
           <Route path="/" element={<CoursesWithContext/>} />
             <Route path="courses/:id" element={<CourseDetailWithContext/>} />
+            {/* <Route path="courses/:id" element={Authenticateduser && <CourseDetailWithContext/>} /> */}
             <Route
               path="/courses/create"
               element={<CreateCoursewithContext />} />
             <Route
               path="courses/:id/update"
-              element={withContext(UpdateCourse)} />
-            <Route element={withContext(PrivateRoute)} />
+              element={<UpdateCourseWithContext/>} />
+            {/* <Route element={withContext(PrivateRoute)} /> */}
             <Route path="/signin" element={<UserSignInWithContext/>} />
             <Route path="/signout" element={<UserSignOutWithContext/>} />
             <Route path="/signup" element={<UserSignUpWithContext/>} />
@@ -49,7 +48,6 @@ const App = () => {
         </Provider>
       </BrowserRouter>
     </React.Fragment>
-    /*</UserContext.Provider>*/
   );
 };
 

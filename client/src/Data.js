@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Buffer } from "buffer"; 
 
 export default class Data {
@@ -10,7 +9,6 @@ export default class Data {
     credentials = null
   ) {
     const url = `http://localhost:5000/api${path}`;
-
     const options = {
       method,
       headers: {
@@ -21,7 +19,7 @@ export default class Data {
     if (body !== null) {
       options.body = JSON.stringify(body);
     }
-
+//Encoding a text string to Base64 string utilizing Buffer object
     if (requiresAuth) {
       const encodedCredentials = Buffer.from(
         `${credentials.username}:${credentials.password}`
