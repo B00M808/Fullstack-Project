@@ -9,7 +9,7 @@ Courses - This component provides the "Courses" screen by retrieving the list of
 */
 /* 
   
-    Use map to create an array, adding all the courses from the database
+    Utilized map to create an array, adding all the courses from the database
     */
 
 const Courses = ({ context }) => {

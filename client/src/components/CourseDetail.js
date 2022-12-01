@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from 'react-markdown'
 
 /* 
@@ -19,7 +19,7 @@ The authenticated user's ID matches that of the user who owns the course.
 const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     context.data
       .getCourse(id)
@@ -30,11 +30,12 @@ const CourseDetail = ({ context }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  //get delete func
-  const handleDelete = (e) => {
+  //get delete function
+  const handleDelete = (id) => {
     context.data
-      .deleteCourse()
+    .deleteCourse(id, context.authenticatedUser.email, context.authenticatedUser.password)
     .then(res => {
+      navigate("/") 
       console.log("deleted")
     }).catch((err) => console.log(err));
   };
@@ -44,7 +45,7 @@ const CourseDetail = ({ context }) => {
       <div className="actions--bar">
         <div className="wrap">
           <Link className="button" to="{'/courses/id/update'}">Update Course</Link>
-          <button className="button" id={course?.id} onClick={handleDelete}>Delete Course</button>
+          <button className="button" id={course?.id} onClick={() => handleDelete(id)}>Delete Course</button>
           <Link className="button button-secondary" to="/">Return to List</Link>
         </div>
       </div>

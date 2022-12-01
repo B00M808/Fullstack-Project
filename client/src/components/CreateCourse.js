@@ -1,4 +1,5 @@
 import React, { useState, useRef, context } from "react";
+import { useNavigate } from "react-router-dom"
 import axios from "axios";
 //import { useNavigate } from "react-router-dom"
 
@@ -29,9 +30,11 @@ import axios from "axios";
       console.error(error);
     });
   };
+  
 */
 
 const CreateCourse = ({ context }) => {
+  const [errors, setErrors] = useState();
   const [course, setCourse] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();

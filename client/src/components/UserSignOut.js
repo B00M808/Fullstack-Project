@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useRef, useState, useContext } from "react";
 import { UserContext } from "../App";
 /*
@@ -7,16 +7,17 @@ import { UserContext } from "../App";
 
 //A signOut() method is globally available that removes the authenticated user's information (including their password) from the global state.
 */
-//
 const UserSignOut = ({ context }) => {
-  const { auth, setAuth } = useContext(UserContext);
-
+  //const { auth, setAuth } = useContext(UserContext);
+const navigate = useNavigate();
   useEffect(() => {
     context.actions.signOut();
-    setAuth(false);
-  }, []);
-  console.log(auth);
-  return <Navigate to={"/"} />;
+    //setAuth(false);
+  //}, []);
+  //console.log(auth);
+  return navigate ("/");
+});
+
 };
 
 export default UserSignOut;

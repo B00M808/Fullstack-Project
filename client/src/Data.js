@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { Buffer } from "buffer";
+//import { Buffer } from "buffer"; FOLLOW UP npm i Buffer
 
 export default class Data {
   api(
@@ -105,16 +105,12 @@ export default class Data {
     }
   }
 
-  async deleteCourse(username, password) {
-    const course = await this.api('/courses/id', "DELETE", username, password);
-    if (course.status === 204) {
-      return course.json().then((data) => data);
-    } else if (course.status === 400) {
-      return course.json().then((data) => {
-        return data.errors;
-      });
+  async deleteCourse(id, username, password) {
+    const response = await this.api(`/courses/${id}`, "DELETE", null, true, {username, password});
+    if (response.status === 204) {
+      console.log("deleted");
     } else {
       throw new Error();
     }
-  }
-}
+  }  
+};
