@@ -1,6 +1,5 @@
-import { useState, useContext  } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
-import { UserContext } from "../App";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 /*
 //Statefull
@@ -10,27 +9,32 @@ navigate("/") setErr (Sign-In Was unsuccessful), otherwise nav back to root, cat
 */
 
 const UserSignUp = ({ context }) => {
-  const {errors, setErrors} = useState();
-  const { auth, setAuth } = useContext(UserContext);
-  const navigate = useNavigate();
+  const firstName = useRef(null);
+  const lastName = useRef(null);
+  const emailAddress = useRef(null);
+  const password = useRef(null);
+const navigate = useNavigate();
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    //await context.actions
-    //.createUser(user) 
-  const user = {
-   /*Capture values from Users at Sign Up, if not err
-    signUp(firstName.current.value, firstName.current.value)
-    .signUp(lastName.current.value, lastName.current.value)
-    .signUp(emailAddress.current.value, password.current.value)
-    .signUp(password.current.value, password.current.value) 
-    */
-  };
+const handleSubmit = async (e) => {
+e.preventDefault();
+await context.actions
+.signUp(emailAddress.current.value, password.current.value)
+.then(() => {navigate("/")});
+};
  
-} 
+
+const user = {
+  /*Capture values from Users at Sign Up, if not err */
+  "firstName": firstName.current.value,
+  "lastName": lastName.current.value,
+  "emailAddress": emailAddress.current.value,
+  "password": password.current.value
 
 };
+return navigate ("/");
+};
+
+  
 
 
 

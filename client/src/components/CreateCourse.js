@@ -1,5 +1,4 @@
-import React, { useState, useRef, context } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react";
 import axios from "axios";
 //import { useNavigate } from "react-router-dom"
 
@@ -34,7 +33,6 @@ import axios from "axios";
 */
 
 const CreateCourse = ({ context }) => {
-  const [errors, setErrors] = useState();
   const [course, setCourse] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +46,6 @@ const CreateCourse = ({ context }) => {
     <main>
       <div className="wrap">
         <h2>Create Course</h2>
-        {/* {valErrors} */}
         <div className="validation--errors">
           <h3>Validation Errors</h3>
           </div>

@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
-import { useRef, useState, useContext } from "react";
-import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 /*
 //Stateless components: UserSignOut - It doesn't render any visual elements. Instead, it signs out the authenticated user and redirects the user to the default route (i.e. the list of courses).
 

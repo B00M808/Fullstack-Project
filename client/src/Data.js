@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { Buffer } from "buffer"; FOLLOW UP npm i Buffer
+import { Buffer } from "buffer"; 
 
 export default class Data {
   api(

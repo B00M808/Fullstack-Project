@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 /*
 A Statefull component

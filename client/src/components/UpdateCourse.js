@@ -5,12 +5,33 @@ const UpdateCourse = () => {
 };
 
 /*
-The component renders a form????(do I make another file titled Form) allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
+The component renders a form allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
 //See Step 9 Restrict access to updating and deleting courses
 //Step 10 Display validation errors
 //Statefull
-*/
-/*
+
+const UserSignUp = ({ context }) => {
+  const firstName = useRef(null);
+  const lastName = useRef(null);
+  const emailAddress = useRef(null);
+  const password = useRef(null);
+const navigate = useNavigate();
+
+const handleSubmit = async (e) => {
+e.preventDefault();
+await context.actions
+.signUp(emailAddress.current.value, password.current.value)
+.then(() => {navigate("/")});
+
+//State is setup 
+const updateData = ({context}) => {
+  "title": course.title,
+  "description": course.description,
+  "estimatedTime": course.estimatedTime,
+  "materialsNeeded": course.materialsNeeded,
+  "userId": course.userId
+
+
 //State is setup 
 const updateData = {
   title: course.title,
@@ -22,7 +43,6 @@ const updateData = {
 
 const email = loggedInUser.email;
 const password = loggedInUser.password;
-//Authurization goes here
 
 fetch(url, {
   method: "PUT",
@@ -48,9 +68,9 @@ if (name === "courseTitle") {
 } else if (name === "materialsNeeded") {
   setMaterialsNeeded(value);
 } else {
-  return;
-}
+
 };
+return(
 
 const handleUpdate = (e) => {
   e.preventDefault();
@@ -75,7 +95,7 @@ const handleUpdate = (e) => {
       navigate("/");
     }
   })
-  catch((errors) => {
+  .catch((errors) => {
     console.error(errors);
   });
 };
@@ -120,6 +140,6 @@ return (
           </div>
     </div>
 )
+);
 */
-
 export default UpdateCourse;
