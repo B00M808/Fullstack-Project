@@ -1,57 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-// const UpdateCourse = () => {
-//   return <div>UpdateCourse</div>;
-// };
-
 /*
 The component renders a form allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
 //See Step 9 Restrict access to updating and deleting courses
 //Step 10 Display validation errors
 //Statefull
 
-const handleSubmit = async (e) => {
-e.preventDefault();
-await context.actions
-.signUp(emailAddress.current.value, password.current.value)
-.then(() => {navigate("/")});
-//
-
-//State is setup 
-const UpdateCourse = ({context}) => {
-  const firstName = useRef(null);
-  const lastName = useRef(null);
-  const emailAddress = useRef(null);
-  const password = useRef(null);
-const navigate = useNavigate();
-
-//
-
-
-//State is setup 
-const updateData = {
-  title: course.title,
-  description: course.description,
-  estimatedTime: course.estimatedTime,
-  materialsNeeded: course.materialsNeeded,
-  userId: course.userId,
-};
-
-const email = loggedInUser.email;
-const password = loggedInUser.password;
-
-//FOLLOW UP 
-fetch(url, {
-  method: "PUT",
-  headers: headers,
-  body: JSON.stringify(updateData),
-})
-.then((response) => response.json())
-.then((json) => {
-  if(json.id) {
-  props.history.push('/courses');
-});
 */
 
 const UpdateCourse = ({ context }) => {
@@ -60,13 +15,6 @@ const UpdateCourse = ({ context }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    // context.data
-    //   .putUpdateCourse(id)
-    //   .then((data) => {
-    //     console.log(data);
-    //     // setUpdateCourse(data);
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
   const handleUpdate = (e) => {

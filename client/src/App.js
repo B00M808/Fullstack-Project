@@ -1,3 +1,38 @@
+/*
+
+/*
+import React, { useState, createContext } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CourseDetail from './components/CourseDetail';
+import Courses from './components/Courses';
+import CreateCourse from './components/CreateCourse';
+import Header from './components/Header';
+import UpdateCourse from './components/UpdateCourse';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import UserSignUp from './components/UserSignUp';
+import withContext from './Context';
+import PrivateRoute from './PrivateRoute';
+function App() {
+  return (
+    <BrowserRouter>
+      {withContext(<Header/>)}
+      <Routes>    
+        <Route path="courses/:id" element={withContext(<CourseDetail/>)} />
+        <Route path="/" element={withContext(<Courses/>)} />
+        <Route path="/courses/create" element={withContext(<CreateCourse/>)} />
+        <Route path="courses/:id/update" element={withContext(<UpdateCourse/>)} />
+        <Route element={withContext(PrivateRoute)} />
+        <Route path="/signin" element={withContext(<UserSignIn/>)} />
+        <Route path="/signout" element={withContext(<UserSignOut/>)} />
+        <Route path="/signup" element={withContext(<UserSignUp/>)} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+export default App;
+*/
+
 import React, { createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

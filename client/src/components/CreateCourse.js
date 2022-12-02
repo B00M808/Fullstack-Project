@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+//import axios from "axios";
 //import { useNavigate } from "react-router-dom"
 
 /* 
@@ -33,110 +34,48 @@ import axios from "axios";
 */
 
 const CreateCourse = ({ context }) => {
+  console.log(context)
   const [course, setCourse] = useState([]);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {}, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  }
-
+    await context.actions
+    .createCourse(emailAddress.current.value, password.current.value)
+    .then(() => {navigate("/")});
+      
   return (
     <main>
       <div className="wrap">
         <h2>Create Course</h2>
-        <div className="validation--errors">
-          <h3>Validation Errors</h3>
-          </div>
         <form onSubmit={handleSubmit}>
           <div className="main--flex">
             <div>
               <label htmlFor="courseTitle">Course Title</label>
-              <input
-                id="courseTitle"
-                name="courseTitle"
-                type="text"
-                value={course.title}
-                onChange={(e) =>
-                  setCourse({ ...course, title: e.target.value })
-                }
-              />
+              <input id="courseTitle" className="courseTitle" type="text" />
               <label htmlFor="courseDescription">Course Description</label>
-              <textarea
-                id="courseDescription"
-                name="courseDescription"
-                value={course.description}
-                onChange={(e) =>
-                  setCourse({ ...course, description: e.target.value })
-                }
-              ></textarea>
+              <textarea id="courseDescription" className="courseDescription"></textarea>
             </div>
             <div>
               <label htmlFor="estimatedTime">Estimated Time</label>
-              <input
-                id="estimatedTime"
-                name="estimatedTime"
-                type="text"
-                value={course.estimatedTime}
-                onChange={(e) =>
-                  setCourse({ ...course, estimatedTime: e.target.value })
-                }
-              />
-
+              <input id="estimatedTime" className="estimatedTime" type="text"/>
               <label htmlFor="materialsNeeded">Materials Needed</label>
-              <textarea
-                id="materialsNeeded"
-                name="materialsNeeded"
-                value={course.materialsNeeded}
-                onChange={(e) =>
-                  setCourse({ ...course, materialsNeeded: e.target.value })
-                }
-              ></textarea>
+              <textarea id="materialsNeeded" className="materialsNeeded"></textarea>
             </div>
           </div>
-          <button
-            className="button button-secondary"
-            NameName="button"
-            type="submit"
-          >
+          <button className="button" type="submit">
             Create Course
           </button>
           <button
             className="button button-secondary"
-            onClick="event.preventDefault(); location.href='index.html';"
-          >
-            Cancel
-          </button>
+            onclick={e => {e.preventDefault(); navigate('/');}}>Cancel</button>
         </form>
       </div>
     </main>
+
   );
 };
-/*
-const handleCreate = () => {
-  const body = {
-    userId: context.authenticatedUser.id,
-    title: title.current.value,
-    description: description.current.value,
-    estimatedTime: estimatedTime.current.value,
-    materialsNeeded: materialsNeeded.current.value,
-  };
 
-  context.data.createCourse(
-  body.userId,
-  context.authenticatedUser.email,
-  context.authenticatedUser.password,
-  body
-  );  
-};
-
-const handleCancel = (e) => {
-  e.preventDefault()
-  navigate('/')
-}
-
-
-
-return (
-  
-  )
-}
-*/
 export default CreateCourse;
