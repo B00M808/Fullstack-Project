@@ -31,10 +31,10 @@ const UserSignUp = ({ context }) => {
     // .then(() => { navigate("/") });
     // }
 
-    const cancel = (e) => { 
-    e.preventDefault();
-    navigate('/');
-    };
+    // const cancel = (e) => { 
+    // e.preventDefault();
+    // navigate('/');
+    // };
     //const user = ({ context }) => {
     /*Capture values from Users at Sign Up, if not err */
     //"firstName"; firstName.current.value,
