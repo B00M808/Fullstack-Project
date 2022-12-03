@@ -67,11 +67,11 @@ const UpdateCourse = ({ context }) => {
 
 //handleSubmit when the form is submitted
 //function is creating the body, and sign in needed to call the update course
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const body = {
+const handleSubmit = (e) => { // eslint-disable-line
+  e.preventDefault(); 
+  //const body = { 
   
-  }
+  //}
 }
 
     // use course state to store all the values that the user enters in the form and update them here with that state
@@ -99,9 +99,6 @@ const handleSubmit = (e) => {
     navigate(`/courses/${id}`);
   };
 
-//Initializes the form with the courses details
-//Utilized useEffect as a close replacement for componentDidMount ()
-  
   //Updates the state with what the user is typing in by grabbing e.target.value 
   const handleChange = (e) => {
     setTitle(e.target.value);

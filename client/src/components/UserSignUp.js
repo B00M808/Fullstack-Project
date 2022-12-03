@@ -9,10 +9,10 @@ The "Sign Up", "Create Course", and "Update Course" screens display validation e
 */
 //Allows a user to sign up by creating a new account or displays validation errors
 const UserSignUp = ({ context }) => {
- const [errors, setErrors] = useState();
+ const [errors, setErrors] = useState(); // eslint-disable-line
   // const lastName = useRef(null);
-  const emailAddress = useRef(null);
-  const password = useRef(null);
+  const emailAddress = useRef(null); // eslint-disable-line
+  const password = useRef(null); // eslint-disable-line
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,7 +31,7 @@ const UserSignUp = ({ context }) => {
     // .then(() => { navigate("/") });
     // }
 
-    const cancel = (e) => {
+    const cancel = (e) => { 
     e.preventDefault();
     navigate('/');
     };

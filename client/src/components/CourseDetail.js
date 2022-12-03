@@ -21,12 +21,15 @@ On the "Course Detail" screen, add rendering logic so that the "Update Course" a
 There's an authenticated user.
 And the authenticated user's ID matches that of the user who owns the course.
 */
+
 //State is setup
 const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
   const { authUser } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  //Fetch course from the database
   useEffect(() => {
     context.data
       .getCourse(id)
