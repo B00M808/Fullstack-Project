@@ -7,6 +7,7 @@ import { UserContext } from '../App';
 
 const CreateCourse = ({ context }) => {
   const [course, setCourse] = useState("");
+  const [errors, setErrors] = useState(); // eslint-disable-line  
   const {authUser} = useContext(UserContext);
   const [estimatedTime, setEstimatedTime] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
@@ -16,12 +17,6 @@ const CreateCourse = ({ context }) => {
   const handleSubmit = async (e) => { // eslint-disable-line
     e.preventDefault();
 
-  //   {
-  //     "title": "New Course",
-  //     "description": "My course description",
-  //     "userId": 1,
-  //     "estimatedTime": "9 hours"
-  // }
     const body = {
       title: course,
       description: courseDescription,
@@ -38,6 +33,8 @@ const CreateCourse = ({ context }) => {
       <div className="wrap">
         <h2>Create Course</h2>
         <form onSubmit={handleSubmit}>
+        {errors && <div>
+        <p>Error</p></div>}
           <div className="main--flex">
             <div>
               <label htmlFor="courseTitle">Course Title</label>

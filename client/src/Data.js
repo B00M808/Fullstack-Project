@@ -25,7 +25,7 @@ export default class Data {
         `${credentials.username}:${credentials.password}`
       ).toString("base64");
       options.headers["Authorization"] = `Basic ${encodedCredentials}`;
-      //localStorage.setItem("token", JSON.stringify(encodedCredentials))
+      localStorage.setItem("token", JSON.stringify(encodedCredentials))
     }
     return fetch(url, options);
   }

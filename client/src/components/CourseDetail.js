@@ -34,13 +34,13 @@ const CourseDetail = ({ context }) => {
         console.log(data);
         setCourse(data);
       })
-      .catch((err) => console.log(err));
+    .catch((err) => console.log(err));
   }, []); // eslint-disable-line
 
   //get delete function
   const handleDelete = async (id) => {
-      await context.data.deleteCourse(id, authUser.email, authUser.password)
-      .then(() => {navigate("/")});
+    await context.data.deleteCourse(id, authUser.email, authUser.password)
+    .then(() => {navigate("/")});
   };
   //Set up a ternary operator to see if the user is the owner of the course before rendering the buttons
   return (

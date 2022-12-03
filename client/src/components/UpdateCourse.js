@@ -8,13 +8,19 @@ The component renders a form allowing a user to update one of their existing cou
 //*******Step 10 Display validation errors
 //Statefull
 
+x Restrict access to updating and deleting courses
+x On the "Course Detail" screen, add rendering logic so that the "Update Course" and "Delete Course" buttons only display if:
+x There's an authenticated user.
+x And the authenticated user's ID matches that of the user who owns the course.
+Display validation errors
+Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
+See the create-course.html file in the markup project files folder.
+
 */
 
 const UpdateCourse = ({ context }) => {
   console.log(context)
   const [course, setCourse] = useState("");// eslint-disable-line
-  
-
   const {authUser} = useContext(UserContext);
   console.log(context);
   const [title, setTitle] = useState("");
@@ -23,12 +29,12 @@ const UpdateCourse = ({ context }) => {
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
 
-  const [errors, setErrors] = useState() // eslint-disable-line
+  //Stores errors returned from REST API
+  const [errors, setErrors] = useState(); // eslint-disable-line  
   const { id } = useParams(); // eslint-disable-line
   const navigate = useNavigate();
   useEffect(() => {
-    context.data
-    .getCourse(id)
+    context.data.getCourse(id)
     .then((data) => {
       console.log(data);
       setCourse(data);
@@ -46,14 +52,6 @@ const UpdateCourse = ({ context }) => {
   
 
   const handleUpdate = (e) => { // eslint-disable-line
-    // e.preventDefault();
-
-  //   {
-  //     "title": "New Course",
-  //     "description": "My course description",
-  //     "userId": 1,
-  //     "estimatedTime": "9 hours"
-  // }
     const body = {
       title,
       courseDescription,
@@ -67,7 +65,14 @@ const UpdateCourse = ({ context }) => {
   };
 
 
-
+//handleSubmit when the form is submitted
+//function is creating the body, and sign in needed to call the update course
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const body = {
+  
+  }
+}
 
     // use course state to store all the values that the user enters in the form and update them here with that state
 
@@ -88,14 +93,17 @@ const UpdateCourse = ({ context }) => {
     //     console.error(errors);
     //   });
   
-
+//Redirects to the Course Detail page
   const handleCancel = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate(`/courses/${id}`);
   };
 
+//Initializes the form with the courses details
+//Utilized useEffect as a close replacement for componentDidMount ()
+  
+  //Updates the state with what the user is typing in by grabbing e.target.value 
   const handleChange = (e) => {
-    // update the state with whatever the user is typing in by grabbing e.target.value -
     setTitle(e.target.value);
     setCourseDescription(e.target.value);
     setEstimatedTime(e.target.value);
