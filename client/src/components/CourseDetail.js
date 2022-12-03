@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, Link, useNavigate} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { UserContext } from "../App";
 
 /* 
 CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
@@ -14,51 +15,52 @@ The authenticated user's ID matches that of the user who owns the course.
 //See Step 9 Restrict access to updating and deleting courses
 //See Step 11 Add support for rendering markdown formatted text
 /The "Course Detail" screen renders the course description and materialsNeeded properties as markdown formatted text. 
+
+
+On the "Course Detail" screen, add rendering logic so that the "Update Course" and "Delete Course" buttons only display if:
+There's an authenticated user.
+And the authenticated user's ID matches that of the user who owns the course.
 */
 //State is setup
 const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
+  const { authUser } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     context.data
       .getCourse(id)
       .then((data) => {
-      console.log(data);
-      setCourse(data);
+        console.log(data);
+        setCourse(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, []); // eslint-disable-line
 
   //get delete function
-  const handleDelete = (id) => {
-    context.data
-      .deleteCourse(
-        id,
-        context.authenticatedUser.email,
-        context.authenticatedUser.password
-      )
-      .then((res) => {
-        navigate("/");
-        console.log("deleted");
-      })
-      .catch((err) => console.log(err));
+  const handleDelete = async (id) => {
+      await context.data.deleteCourse(id, authUser.email, authUser.password)
+      .then(() => {navigate("/")});
   };
-
+  //Set up a ternary operator to see if the user is the owner of the course before rendering the buttons
   return (
     <main>
       <div className="actions--bar">
         <div className="wrap">
-          <Link className="button" to={`/courses/${id}/update`}>
-            Update Course
-          </Link>
-          <button
-          className="button"
-          id={course?.id}
-          onClick={() => handleDelete(id)}
-          >
-            Delete Course
-          </button>
+          {course?.User?.emailAddress === authUser.email ? (
+            <>
+              <Link className="button" to={`/courses/${id}/update`}>
+                Update Course
+              </Link>
+              <button
+                className="button"
+                id={course?.id}
+                onClick={() => handleDelete(id)}
+              >
+                Delete Course
+              </button>
+            </>
+          ) : null}
           <Link className="button button-secondary" to="/">
             Return to List
           </Link>

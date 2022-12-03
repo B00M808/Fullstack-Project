@@ -1,50 +1,37 @@
-import React, { useState } from "react";
+import { React, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-//import axios from "axios";
-//import { useNavigate } from "react-router-dom"
+import { UserContext } from '../App';
 
-/* 
-//See Step 10 Display validation errors
--Create Course" screens display validation errors returned from the REST API.
-//Statefull
-*/
-
-  /*
-    This is what api function does in Data
-    const options = {
-      method: 'POST',
-      url: 'http://localhost:5000/api/courses',
-      headers: {Authorization: 'Basic am9lQHNtaXRoLmNvbTpqb2VwYXNzd29yZA=='},
-      data: {
-        title: course?.title,
-        description: course?.description,
-        userId: randomNumber,
-        estimatedTime: course.estimatedTime
-      }
-    };
-    
-    // const course = {title: title.current.value, description: description.current.value, estimatedTime: estimatedTime}
-    axios.request(options).then(function (response) {
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
-  };
-  
-*/
+// Display validation errors
+// Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
 
 const CreateCourse = ({ context }) => {
-  console.log(context)
-  const [course, setCourse] = useState([]);
-  const { id } = useParams();
+  const [course, setCourse] = useState("");
+  const {authUser} = useContext(UserContext);
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {}, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // eslint-disable-line
     e.preventDefault();
-    await context.actions
-    .createCourse(emailAddress.current.value, password.current.value)
+
+  //   {
+  //     "title": "New Course",
+  //     "description": "My course description",
+  //     "userId": 1,
+  //     "estimatedTime": "9 hours"
+  // }
+    const body = {
+      title: course,
+      description: courseDescription,
+      userId: 1,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded
+    }
+    await context.data.createCourse(body, authUser.email, authUser.password)
     .then(() => {navigate("/")});
+  };
       
   return (
     <main>
@@ -54,15 +41,16 @@ const CreateCourse = ({ context }) => {
           <div className="main--flex">
             <div>
               <label htmlFor="courseTitle">Course Title</label>
-              <input id="courseTitle" className="courseTitle" type="text" />
+              <input id="courseTitle" className="courseTitle" type="text" value={course} onChange = {e => setCourse(e.target.value)} />
               <label htmlFor="courseDescription">Course Description</label>
-              <textarea id="courseDescription" className="courseDescription"></textarea>
+              <textarea id="courseDescription" className="courseDescription" type="text" value={courseDescription} onChange = {e => setCourseDescription(e.target.value)} > </textarea>
+              
             </div>
-            <div>
+            <div> 
               <label htmlFor="estimatedTime">Estimated Time</label>
-              <input id="estimatedTime" className="estimatedTime" type="text"/>
+              <input id="estimatedTime" className="estimatedTime" type="text" value={estimatedTime} onChange = {e => setEstimatedTime(e.target.value)} />
               <label htmlFor="materialsNeeded">Materials Needed</label>
-              <textarea id="materialsNeeded" className="materialsNeeded"></textarea>
+              <textarea id="materialsNeeded" className="materialsNeeded" type="text" value={materialsNeeded} onChange = {e => setCourseMaterialsNeeded(e.target.value)} ></textarea>
             </div>
           </div>
           <button className="button" type="submit">
@@ -70,12 +58,11 @@ const CreateCourse = ({ context }) => {
           </button>
           <button
             className="button button-secondary"
-            onclick={e => {e.preventDefault(); navigate('/');}}>Cancel</button>
+            onClick={e => {e.preventDefault(); navigate('/');}}>Cancel</button>
         </form>
       </div>
     </main>
 
   );
 };
-
-export default CreateCourse;
+export default CreateCourse

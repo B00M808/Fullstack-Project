@@ -1,37 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { UserContext } from '../App';
 
 /*
 The component renders a form allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
 //See Step 9 Restrict access to updating and deleting courses
-//Step 10 Display validation errors
+//*******Step 10 Display validation errors
 //Statefull
 
 */
 
 const UpdateCourse = ({ context }) => {
   console.log(context)
-  const [course, setCourse] = useState([]);
-  const { id } = useParams();
+  const [course, setCourse] = useState("");// eslint-disable-line
+  
+
+  const {authUser} = useContext(UserContext);
+  console.log(context);
+  const [title, setTitle] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [userId, setUserId] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
+
+  const [errors, setErrors] = useState() // eslint-disable-line
+  const { id } = useParams(); // eslint-disable-line
   const navigate = useNavigate();
   useEffect(() => {
-  }, []);
+    context.data
+    .getCourse(id)
+    .then((data) => {
+      console.log(data);
+      setCourse(data);
+      setTitle(data.title);
+      setCourseDescription(data.description);
+      setUserId(data.UserId);
+      setEstimatedTime(data.estimatedTime);
+      setCourseMaterialsNeeded(data.materialsNeeded);
+    })
+    .catch((err) => console.log(err));
+  }, [context, id]);
+  // .then(() => {navigate("/")});
+// }; 
+  //}, 
+  
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
+  const handleUpdate = (e) => { // eslint-disable-line
+    // e.preventDefault();
 
+  //   {
+  //     "title": "New Course",
+  //     "description": "My course description",
+  //     "userId": 1,
+  //     "estimatedTime": "9 hours"
+  // }
     const body = {
-      title: "",
-      description: "",
-      estimatedTime: "",
-      materialsNeeded: ""
-    };
+      title,
+      courseDescription,
+      userId,
+      estimatedTime,
+      materialsNeeded,
+    }
+  
+    context.data.updateCourse(body, authUser.email, authUser.password, id)
+    .then(() => {navigate("/")});
+  };
+
+
+
+
+    // use course state to store all the values that the user enters in the form and update them here with that state
 
     // context.data
     //   .updateCourse(
-    //     body,
-    //     context.authenticatedUser.emailAddress,
-    //     context.authenticatedUser.password
+    //     course,
+        // context.authenticatedUser.emailAddress,
+        // context.authenticatedUser.password
     //   )
     //   .then((errors) => {
     //     if (errors.length > 0) {
@@ -43,7 +87,7 @@ const UpdateCourse = ({ context }) => {
     //   .catch((errors) => {
     //     console.error(errors);
     //   });
-  };
+  
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -51,12 +95,18 @@ const UpdateCourse = ({ context }) => {
   };
 
   const handleChange = (e) => {
-
-  }
+    // update the state with whatever the user is typing in by grabbing e.target.value -
+    setTitle(e.target.value);
+    setCourseDescription(e.target.value);
+    setEstimatedTime(e.target.value);
+    setCourseMaterialsNeeded(e.target.value);
+  };
 
   return (
     <div className="wrap">
-      <h2>Update Coursessssss</h2>
+      <h2>Update Course</h2>
+      {errors && <div>
+        <p>Error</p></div>}
       <form onSubmit={handleUpdate}>
         <div className="main--flex">
           <div>
@@ -65,7 +115,7 @@ const UpdateCourse = ({ context }) => {
               id="courseTitle"
               className="courseTitle"
               type="text"
-              defaultValue={course?.title}
+              defaultValue={title}
               onChange={handleChange} />
             <label htmlFor="courseDescription">Course Description</label>
             <textarea id="courseDescription" className="courseDescription"></textarea>

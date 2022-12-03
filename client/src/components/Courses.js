@@ -14,13 +14,21 @@ Courses - This component provides the "Courses" screen by retrieving the list of
 
 const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
+  
   //Calling function
   useEffect(() => {
+    // already stored the user information in session storage when the user signs in, from that getting email
     context.data
       .getCourses()
-      .then((data) => setCourses(data))
+      .then((data) => {
+        console.log(data)
+        // checking here if that user's email address matches with email address of the course.
+        // if(userEmail === data[0].User.emailAddress) {
+          setCourses(data)
+        // }
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <main>
@@ -39,7 +47,7 @@ const Courses = ({ context }) => {
         })}
         <Link
           className="course--module course--add--module"
-          to="/courses/create"
+          to="/courses/create/new"
         >
           <span className="course--add--title">
             <svg

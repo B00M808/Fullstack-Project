@@ -25,6 +25,7 @@ export default class Data {
         `${credentials.username}:${credentials.password}`
       ).toString("base64");
       options.headers["Authorization"] = `Basic ${encodedCredentials}`;
+      //localStorage.setItem("token", JSON.stringify(encodedCredentials))
     }
     return fetch(url, options);
   }
@@ -74,7 +75,8 @@ export default class Data {
     }
   }
 
-  async createCourse(id, username, password, body) {
+  async createCourse(body, username, password) {
+    console.log(body, username, password)
     const response = await this.api("/courses", "POST", body, true, {
       username,
       password,
@@ -90,10 +92,15 @@ export default class Data {
     }
   }
 
-  async updateCourse(courseForm, id) {
-    const course = await this.api(`/courses/${id}`, "PUT", courseForm);
+  async updateCourse(body, email, password, id) {
+    const course = await this.api(`/courses/${id}`, "PUT", body, true, { 
+      email, 
+      password, 
+      id,
+    });
+    console.log(email, password, id);
     if (course.status === 204) {
-      return course.json().then((data) => data);
+      return [];
     } else if (course.status === 400) {
       return course.json().then((data) => {
         return data.errors;

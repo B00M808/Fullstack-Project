@@ -22,14 +22,14 @@ const handleSubmit = async (e) => {
   };
   */
 
-import { useRef, Context } from "react";
+import { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 //import { UserContext } from '../App';
 //Statefull
 
 const UserSignIn = ({ context }) => {
-  const {auth, setAuth} = Context(context);
-  console.log(auth);
+  const {setAuth, setAuthUser} = useContext(UserContext);
   const emailAddress = useRef(null);
   const password = useRef(null);
   const navigate = useNavigate();
@@ -39,7 +39,9 @@ const UserSignIn = ({ context }) => {
     await context.actions
       .signIn(emailAddress.current.value, password.current.value)
       .then(setAuth(true))
+      .then(setAuthUser({email: emailAddress.current.value, password: password.current.value}))
       .then(navigate("/")); 
+      // console.log(emailAddress.current.value);
     };
   
   return (
@@ -50,7 +52,7 @@ const UserSignIn = ({ context }) => {
           <label htmlFor="emailAddress">Email Address</label>
           <input id="emailAddress" name="emailAddress" type="email" defaultValue="" ref={emailAddress} />
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" defaultValue=" "ref={password} />
+          <input id="password" name="password" type="password" defaultValue="" ref={password} />
           <button className="button" type="submit">
             Sign In
           </button>
