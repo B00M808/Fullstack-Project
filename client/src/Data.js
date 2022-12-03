@@ -25,11 +25,12 @@ export default class Data {
         `${credentials.username}:${credentials.password}`
       ).toString("base64");
       options.headers["Authorization"] = `Basic ${encodedCredentials}`;
-      localStorage.setItem("token", JSON.stringify(encodedCredentials))
+    //  localStorage.setItem("token", JSON.stringify(encodedCredentials))
     }
     return fetch(url, options);
   }
 
+//User signs in with credentials
   async getUser(username, password) {
     const response = await this.api("/users", "GET", null, true, {
       username,
@@ -44,6 +45,7 @@ export default class Data {
     }
   }
 
+  //A new user gets created
   async createUser(user) {
     const response = await this.api("/users", "POST", user);
     if (response.status === 201) {
@@ -57,6 +59,7 @@ export default class Data {
     }
   }
 
+  //Retrieves courses
   async getCourses() {
     const response = await this.api("/courses", "GET");
     if (response.status === 200) {
@@ -64,8 +67,9 @@ export default class Data {
     } else {
       throw new Error();
     }
+  
   }
-
+//Retrieves a course
   async getCourse(id) {
     const response = await this.api(`/courses/${id}`, "GET");
     if (response.status === 200) {
@@ -75,6 +79,7 @@ export default class Data {
     }
   }
 
+  //A new course gets created
   async createCourse(body, username, password) {
     console.log(body, username, password)
     const response = await this.api("/courses", "POST", body, true, {
@@ -82,7 +87,7 @@ export default class Data {
       password,
     });
     if (response.status === 201) {
-      return [];
+      return []; //empty response if successful
     } else if (response.status === 400) {
       return response.json().then((data) => {
         return data.errors;
@@ -92,6 +97,7 @@ export default class Data {
     }
   }
 
+//Update a specific course
   async updateCourse(body, email, password, id) {
     const course = await this.api(`/courses/${id}`, "PUT", body, true, { 
       email, 
@@ -100,7 +106,7 @@ export default class Data {
     });
     console.log(email, password, id);
     if (course.status === 204) {
-      return [];
+      return []; //empty response if successful
     } else if (course.status === 400) {
       return course.json().then((data) => {
         return data.errors;
@@ -110,6 +116,7 @@ export default class Data {
     }
   }
 
+//Delete a specific course
   async deleteCourse(id, username, password) {
     const response = await this.api(`/courses/${id}`, "DELETE", null, true, {username, password});
     if (response.status === 204) {

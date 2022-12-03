@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 /*
-//Statefull
-//See Step 10 Display validation errors
 *****The "Sign Up" displays validation errors returned from the REST API.
 navigate("/") setErr (Sign-In Was unsuccessful), otherwise nav back to root, catch error
 

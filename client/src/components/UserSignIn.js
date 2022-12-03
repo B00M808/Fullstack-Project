@@ -1,32 +1,12 @@
-/*
-import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-A Statefull component
-Utilized a signIn() method which is globally available.
-Authenticated a user using their email address and password.
-Persists the authenticated user's information (including their password) in the global state.
-FOLLOW UP on errors, see instructions
-*/
-/*
-const UserSignIn = ({ context }) => {
-  const emailAddress = useRef(null);
-  const password = useRef(null);
-  const navigate = useNavigate();
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-    await context.actions
-    .signIn(emailAddress.current.value, password.current.value)
-    .then(() => {navigate("/")});
-  };
-  */
-
 import { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-//import { UserContext } from '../App';
-//Statefull
+
+/*
+Utilized a signIn() method which is globally available.
+Authenticated a user using their email address and password.
+Persists the authenticated user's information (including their password) in the global state.
+*/
 
 const UserSignIn = ({ context }) => {
   const {setAuth, setAuthUser} = useContext(UserContext);

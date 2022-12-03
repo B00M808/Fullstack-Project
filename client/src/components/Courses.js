@@ -8,9 +8,7 @@ Courses - This component provides the "Courses" screen by retrieving the list of
 //Statefull
 */
 /* 
-  
-    Utilized map to create an array, adding all the courses from the database
-    */
+      */
 
 const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
@@ -18,18 +16,16 @@ const Courses = ({ context }) => {
   //Calling function
   useEffect(() => {
     // already stored the user information in session storage when the user signs in, from that getting email
-    context.data
-      .getCourses()
+    context.data.getCourses()
       .then((data) => {
-        console.log(data)
-        // checking here if that user's email address matches with email address of the course.
-        // if(userEmail === data[0].User.emailAddress) {
-          setCourses(data)
+        console.log(data);
+        setCourses(data)
         // }
       })
       .catch((err) => console.log(err));
   }, []); // eslint-disable-line
 
+  //Utilized map to create an array, adding all the courses from the database
   return (
     <main>
       <div className="wrap main--grid">
