@@ -22,7 +22,7 @@ There's an authenticated user.
 And the authenticated user's ID matches that of the user who owns the course.
 */
 
-//State is setup
+//State setup
 const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
   const { authUser } = useContext(UserContext);

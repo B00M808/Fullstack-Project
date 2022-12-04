@@ -14,13 +14,17 @@ const UserSignIn = ({ context }) => {
   const password = useRef(null);
   const navigate = useNavigate();
 
+//Authenticated a user using their email address and password.
   const handleSubmit = async (e) => {
     e.preventDefault();
     await context.actions
       .signIn(emailAddress.current.value, password.current.value)
-      .then(setAuth(true))
-      .then(setAuthUser({email: emailAddress.current.value, password: password.current.value}))
-      .then(navigate("/")); 
+      .then(data => {
+        console.log(data)
+        setAuth(true)
+        setAuthUser({userId: data.userId,email: data.emailAddress, password: data.password})
+        navigate("/")
+      })
       // console.log(emailAddress.current.value);
     };
   
@@ -41,8 +45,7 @@ const UserSignIn = ({ context }) => {
           </Link>
         </form>
         <p>
-          Don't have a user account? Click here to
-          <Link to="/signup">Sign Up</Link>!
+          Don't have a user account? Click here to <Link to="/signup">Sign Up</Link>!
         </p>
       </div>
     </main>

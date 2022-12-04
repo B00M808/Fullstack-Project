@@ -24,7 +24,7 @@ const UpdateCourse = ({ context }) => {
   const {authUser} = useContext(UserContext);
   console.log(context);
   const [title, setTitle] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
+  const [description, setDescription] = useState("");
   const [userId, setUserId] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
@@ -39,8 +39,8 @@ const UpdateCourse = ({ context }) => {
       console.log(data);
       setCourse(data);
       setTitle(data.title);
-      setCourseDescription(data.description);
-      setUserId(data.UserId);
+      setDescription(data.description);
+      setUserId(data.user.id);
       setEstimatedTime(data.estimatedTime);
       setCourseMaterialsNeeded(data.materialsNeeded);
     })
@@ -52,12 +52,16 @@ const UpdateCourse = ({ context }) => {
   
 
   const handleUpdate = (e) => { // eslint-disable-line
+    e.preventDefault();
+    navigate(`/courses/${id}`);
+//if else if goes here 58-68 goes in else cond
     const body = {
-      title,
-      courseDescription,
-      userId,
-      estimatedTime,
-      materialsNeeded,
+      id: 1,
+      title: title,
+      description: description,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded,
+      userId: authUser.userId,
     }
   
     context.data.updateCourse(body, authUser.email, authUser.password, id)
@@ -69,6 +73,7 @@ const UpdateCourse = ({ context }) => {
 //function is creating the body, and sign in needed to call the update course
 const handleSubmit = (e) => { // eslint-disable-line
   e.preventDefault(); 
+
   //const body = { 
   
   //}
@@ -102,7 +107,7 @@ const handleSubmit = (e) => { // eslint-disable-line
   //Updates the state with what the user is typing in by grabbing e.target.value 
   const handleChange = (e) => {
     setTitle(e.target.value);
-    setCourseDescription(e.target.value);
+    setDescription(e.target.value);
     setEstimatedTime(e.target.value);
     setCourseMaterialsNeeded(e.target.value);
   };
@@ -120,20 +125,20 @@ const handleSubmit = (e) => { // eslint-disable-line
               id="courseTitle"
               className="courseTitle"
               type="text"
-              defaultValue={title}
-              onChange={handleChange} />
+              value={title}
+              onChange = {e => setTitle(e.target.value)} />
             <label htmlFor="courseDescription">Course Description</label>
-            <textarea id="courseDescription" className="courseDescription"></textarea>
+            <textarea id="courseDescription" className="courseDescription" value = {description} onChange={e => setDescription(e.target.value)} ></textarea>
           </div>
           <div>
             <label htmlFor="estimatedTime">Estimated Time</label>
             <input id="estimatedTime"
               className="estimatedTime"
               type="text"
-              defaultValue="14 hours"
-              onChange={handleChange} />
+              value = {estimatedTime} 
+              onChange = {e => setEstimatedTime(e.target.value)} />
             <label htmlFor="materialsNeeded">Materials Needed</label>
-            <textarea id="materialsNeeded" className="materialsNeeded"></textarea>
+            <textarea id="materialsNeeded" className="materialsNeeded" value={materialsNeeded} onChange = {e => setCourseMaterialsNeeded(e.target.value)}></textarea>
           </div>
         </div>
         <button className="button" type="submit">Update Course</button>

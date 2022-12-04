@@ -98,13 +98,13 @@ export default class Data {
   }
 
 //Update a specific course
-  async updateCourse(body, email, password, id) {
+  async updateCourse(body, username, password, id) {
     const course = await this.api(`/courses/${id}`, "PUT", body, true, { 
-      email, 
+      username, 
       password, 
       id,
     });
-    console.log(email, password, id);
+    console.log(username, password, id);
     if (course.status === 204) {
       return []; //empty response if successful
     } else if (course.status === 400) {

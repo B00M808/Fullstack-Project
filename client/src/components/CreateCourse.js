@@ -2,8 +2,9 @@ import { React, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
 
+// This component provides the "Create Course" screen by rendering a form that allows a user to create a new course. 
 // Display validation errors
-// Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
+// ****Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
 
 const CreateCourse = ({ context }) => {
   const [course, setCourse] = useState("");
@@ -16,7 +17,7 @@ const CreateCourse = ({ context }) => {
 
   const handleSubmit = async (e) => { // eslint-disable-line
     e.preventDefault();
-
+//if else
     const body = {
       title: course,
       description: courseDescription,
@@ -27,7 +28,8 @@ const CreateCourse = ({ context }) => {
     await context.data.createCourse(body, authUser.email, authUser.password)
     .then(() => {navigate("/")});
   };
-      
+
+//Renders a "Create Course" button that when clicked sends a POST request to the REST API's /api/courses route. Also renders a "Cancel" button that returns the user to the default route (i.e. the list of courses).      
   return (
     <main>
       <div className="wrap">
@@ -62,4 +64,4 @@ const CreateCourse = ({ context }) => {
 
   );
 };
-export default CreateCourse
+export default CreateCourse;

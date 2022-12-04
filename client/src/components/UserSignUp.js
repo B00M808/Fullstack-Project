@@ -9,8 +9,12 @@ The "Sign Up", "Create Course", and "Update Course" screens display validation e
 */
 //Allows a user to sign up by creating a new account or displays validation errors
 const UserSignUp = ({ context }) => {
- const [errors, setErrors] = useState(); // eslint-disable-line
-  // const lastName = useRef(null);
+  const [errors, setErrors] = useState({
+    firstNameErr: "",
+    lastNameErr: "",
+  }); // eslint-disable-line
+  const firstName = useRef(null);
+  const lastName = useRef(null);
   const emailAddress = useRef(null); // eslint-disable-line
   const password = useRef(null); // eslint-disable-line
   const navigate = useNavigate();
@@ -18,55 +22,72 @@ const UserSignUp = ({ context }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // context.data.createUser(user)
-    // then(errors => {   
-    //   if (errors) {
-    //     setErrors(errors); 
-    //   } else {
-    //   context.actions.signUp(emailAddress.current.value, password.current.value)
-    //   .then(() => { navigate("/") });
-    // })
-  
-    // await context.actions.signUp(emailAddress.current.value, password.current.value)
-    // .then(() => { navigate("/") });
-    // }
-
-    // const cancel = (e) => { 
-    // e.preventDefault();
-    // navigate('/');
-    // };
-    //const user = ({ context }) => {
-    /*Capture values from Users at Sign Up, if not err */
-    //"firstName"; firstName.current.value,
-    // "lastName"; lastName.current.value,
-    // "emailAddress"; emailAddress.current.value,
-    // "password"; password.current.value,
-    // };
-    //return navigate ("/");
-
-  }
-    return (
-
-      <div class="form--centered">
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-        {errors && <div>
-        <p>Error</p></div>}
-          <label htmlFor="firstName">First Name</label>
-          <input id="firstName" name="firstName" type="text" />
-          <label htmlFor="lastName">Last Name</label>
-          <input id="lastName" name="lastName" type="text" />
-          <label htmlFor="emailAddress">Email Address</label>
-          <input id="emailAddress" name="emailAddress" type="email" />
-          <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" />
-          <button className="button" type="submit">Sign Up</button>
-          <button className="button button-secondary" onclick={e => { e.preventDefault(); navigate('/'); }}>Cancel</button>
-        </form>
-        <p>Already have a user account? Click here to {" "} <Link to="/sign-in">sign in</Link>!</p>
-      </div>
-    )
-
+    if (firstName.current.value === "") {
+      setErrors((prev) => ({
+        ...prev,
+        firstNameErr: "Please provide a value for Title",
+      }));
+    } else if (lastName.current.value === "") {
+    } else {
+      const user = {
+        firstName: firstName.current.value,
+        lastName: lastName.current.value,
+        emailAddress: emailAddress.current.value,
+        password: password.current.value,
+      };
+      console.log(user);
+      context.data
+        .createUser(user)
+        .then((data) => {
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrors(err);
+        });
+    }
+  };
+  return (
+    <div className="form--centered">
+      {errors && (
+        <div>
+          <p>{errors?.firstNameErr}</p>
+        </div>
+      )}
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="firstName">First Name</label>
+        <input id="firstName" name="firstName" type="text" ref={firstName} />
+        <label htmlFor="lastName">Last Name</label>
+        <input id="lastName" name="lastName" type="text" ref={lastName} />
+        <label htmlFor="emailAddress">Email Address</label>
+        <input
+          id="emailAddress"
+          name="emailAddress"
+          type="email"
+          ref={emailAddress}
+        />
+        <label htmlFor="password">Password</label>
+        <input id="password" name="password" type="password" ref={password} />
+        <button className="button" type="submit">
+          Sign Up
+        </button>
+        <button
+          className="button button-secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+        >
+          Cancel
+        </button>
+      </form>
+      <p>
+        Already have a user account? Click here to{" "}
+        <Link to="/sign-in">sign in</Link>!
+      </p>
+    </div>
+  );
 };
 
 export default UserSignUp;
