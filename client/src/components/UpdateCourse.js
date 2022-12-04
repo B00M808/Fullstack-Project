@@ -4,33 +4,27 @@ import { UserContext } from '../App';
 
 /*
 The component renders a form allowing a user to update one of their existing courses, an "Update Course" button that when clicked sends a PUT request to the REST API's /api/courses/:id route, and a "Cancel" button that returns the user to the "Course Detail" screen.
-//See Step 9 Restrict access to updating and deleting courses
-//*******Step 10 Display validation errors
-//Statefull
-
-x Restrict access to updating and deleting courses
-x On the "Course Detail" screen, add rendering logic so that the "Update Course" and "Delete Course" buttons only display if:
-x There's an authenticated user.
-x And the authenticated user's ID matches that of the user who owns the course.
-Display validation errors
-Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
-See the create-course.html file in the markup project files folder.
-
 */
 
 const UpdateCourse = ({ context }) => {
   console.log(context)
-  const [course, setCourse] = useState("");// eslint-disable-line
+  const [course, setCourse] = useState(""); // eslint-disable-line
   const {authUser} = useContext(UserContext);
   console.log(context);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(""); // eslint-disable-line
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
 
   //Stores errors returned from REST API
-  const [errors, setErrors] = useState(); // eslint-disable-line  
+  const [errors, setErrors] = useState({ // eslint-disable-line
+    titleErr: "",
+    descriptionErr: "",
+    estimatedTimeErr: "",
+    materialsNeededErr: "", 
+  });
+
   const { id } = useParams(); // eslint-disable-line
   const navigate = useNavigate();
   useEffect(() => {
@@ -46,15 +40,32 @@ const UpdateCourse = ({ context }) => {
     })
     .catch((err) => console.log(err));
   }, [context, id]);
-  // .then(() => {navigate("/")});
-// }; 
-  //}, 
-  
 
   const handleUpdate = (e) => { // eslint-disable-line
     e.preventDefault();
     navigate(`/courses/${id}`);
-//if else if goes here 58-68 goes in else cond
+
+    if (title.current.value === "") {
+      setErrors((prev) => ({
+        ...prev,
+        titleErr: "Please provide a value for Title",
+      }));
+    } else if (description.current.value === "") {
+      setErrors((prev) => ({
+        ...prev,
+        descriptionErr: "Please provide a value for Description",
+      }));
+      } else if (estimatedTime.current.value === "") {
+        setErrors((prev) => ({
+          ...prev,
+          estimatedTimeErr: "Please provide a value for Estimated Time",
+        }));    
+        } else if (materialsNeeded.current.value === "") {
+          setErrors((prev) => ({
+            ...prev,
+            materialsNeededErr: "Please provide a value for Materials Needed",
+          }));
+          } else {
     const body = {
       id: 1,
       title: title,
@@ -74,13 +85,7 @@ const UpdateCourse = ({ context }) => {
 const handleSubmit = (e) => { // eslint-disable-line
   e.preventDefault(); 
 
-  //const body = { 
-  
-  //}
 }
-
-    // use course state to store all the values that the user enters in the form and update them here with that state
-
     // context.data
     //   .updateCourse(
     //     course,
@@ -105,7 +110,7 @@ const handleSubmit = (e) => { // eslint-disable-line
   };
 
   //Updates the state with what the user is typing in by grabbing e.target.value 
-  const handleChange = (e) => {
+  const handleChange = (e) => { // eslint-disable-line
     setTitle(e.target.value);
     setDescription(e.target.value);
     setEstimatedTime(e.target.value);
@@ -115,8 +120,26 @@ const handleSubmit = (e) => { // eslint-disable-line
   return (
     <div className="wrap">
       <h2>Update Course</h2>
-      {errors && <div>
-        <p>Error</p></div>}
+      {errors && (
+        <div>
+          <p>{errors?.titleErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.descriptionErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.estimatedTimeErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.materialsNeededErr}</p>
+        </div>
+      )}
       <form onSubmit={handleUpdate}>
         <div className="main--flex">
           <div>
@@ -148,5 +171,6 @@ const handleSubmit = (e) => { // eslint-disable-line
       </form >
     </div>
   );
-}
+      };
+};
   export default UpdateCourse;

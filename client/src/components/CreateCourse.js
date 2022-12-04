@@ -8,17 +8,45 @@ import { UserContext } from '../App';
 
 const CreateCourse = ({ context }) => {
   const [course, setCourse] = useState("");
-  const [errors, setErrors] = useState(); // eslint-disable-line  
   const {authUser} = useContext(UserContext);
+  const [title, setTitle] = useState(""); // eslint-disable-line
   const [estimatedTime, setEstimatedTime] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({
+    titleErr: "",
+    descriptionErr: "",
+    estimatedTimeErr: "",
+    materialsNeededErr: "", 
+  }); 
 
-  const handleSubmit = async (e) => { // eslint-disable-line
+  const handleSubmit = async (e) => {  
     e.preventDefault();
-//if else
-    const body = {
+  
+    //Validation Errors
+    if (title.current.value === "") {
+      setErrors((prev) => ({
+        ...prev,
+        titleErr: "Please provide a value for Title",
+      }));
+    } else if (courseDescription.current.value === "") {
+      setErrors((prev) => ({
+        ...prev,
+        descriptionErr: "Please provide a value for Description",
+      }));
+      } else if (estimatedTime.current.value === "") {
+        setErrors((prev) => ({
+          ...prev,
+          estimatedTimeErr: "Please provide a value for Estimated Time",
+        }));    
+        } else if (materialsNeeded.current.value === "") {
+          setErrors((prev) => ({
+            ...prev,
+            materialsNeededErr: "Please provide a value for Materials Needed",
+          }));
+          } else {
+          const body = {
       title: course,
       description: courseDescription,
       userId: 1,
@@ -28,22 +56,28 @@ const CreateCourse = ({ context }) => {
     await context.data.createCourse(body, authUser.email, authUser.password)
     .then(() => {navigate("/")});
   };
-
+  };
 //Renders a "Create Course" button that when clicked sends a POST request to the REST API's /api/courses route. Also renders a "Cancel" button that returns the user to the default route (i.e. the list of courses).      
   return (
     <main>
       <div className="wrap">
         <h2>Create Course</h2>
-        <form onSubmit={handleSubmit}>
-        {errors && <div>
+        <div className="validation--errors">
+                    <h3>Validation Errors</h3>
+                    <ul>
+                        <li>Please provide a value for "Title"</li>
+                        <li>Please provide a value for "Description"</li>
+                    </ul>
+                </div>
+                {errors && <div>
         <p>Error</p></div>}
+        <form onSubmit={handleSubmit}>
           <div className="main--flex">
             <div>
               <label htmlFor="courseTitle">Course Title</label>
               <input id="courseTitle" className="courseTitle" type="text" value={course} onChange = {e => setCourse(e.target.value)} />
               <label htmlFor="courseDescription">Course Description</label>
               <textarea id="courseDescription" className="courseDescription" type="text" value={courseDescription} onChange = {e => setCourseDescription(e.target.value)} > </textarea>
-              
             </div>
             <div> 
               <label htmlFor="estimatedTime">Estimated Time</label>
@@ -61,7 +95,6 @@ const CreateCourse = ({ context }) => {
         </form>
       </div>
     </main>
-
   );
 };
 export default CreateCourse;

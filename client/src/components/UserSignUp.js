@@ -12,7 +12,10 @@ const UserSignUp = ({ context }) => {
   const [errors, setErrors] = useState({
     firstNameErr: "",
     lastNameErr: "",
-  }); // eslint-disable-line
+    emailAddressErr: "",
+    passwordErr: "",
+  }); 
+
   const firstName = useRef(null);
   const lastName = useRef(null);
   const emailAddress = useRef(null); // eslint-disable-line
@@ -21,20 +24,36 @@ const UserSignUp = ({ context }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+//Validation Errors
     if (firstName.current.value === "") {
       setErrors((prev) => ({
         ...prev,
-        firstNameErr: "Please provide a value for Title",
+        firstNameErr: "Please provide a value for First Name",
       }));
     } else if (lastName.current.value === "") {
-    } else {
+      setErrors((prev) => ({
+        ...prev,
+        lastNameErr: "Please provide a value for Last Name",
+      }));
+      } else if (emailAddress.current.value === "") {
+        setErrors((prev) => ({
+          ...prev,
+          emailAddressErr: "Please provide a value for Email Address",
+        }));    
+        } else if (password.current.value === "") {
+          setErrors((prev) => ({
+            ...prev,
+            passwordErr: "Please provide a value for Password",
+          }));
+          } else {
       const user = {
         firstName: firstName.current.value,
         lastName: lastName.current.value,
         emailAddress: emailAddress.current.value,
         password: password.current.value,
       };
+//Redirecting to the main public page
       console.log(user);
       context.data
         .createUser(user)
@@ -47,11 +66,27 @@ const UserSignUp = ({ context }) => {
         });
     }
   };
+
   return (
     <div className="form--centered">
       {errors && (
         <div>
           <p>{errors?.firstNameErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.lastNameErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.emailAddressErr}</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p>{errors?.passwordErr}</p>
         </div>
       )}
       <h2>Sign Up</h2>
