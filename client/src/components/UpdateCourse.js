@@ -15,7 +15,7 @@ const UpdateCourse = ({ context }) => {
   const [description, setDescription] = useState("");
   const [userId, setUserId] = useState(""); // eslint-disable-line
   const [estimatedTime, setEstimatedTime] = useState("");
-  const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
 
   //Stores errors returned from REST API
   const [errors, setErrors] = useState({ // eslint-disable-line
@@ -36,7 +36,7 @@ const UpdateCourse = ({ context }) => {
       setDescription(data.description);
       setUserId(data.user.id);
       setEstimatedTime(data.estimatedTime);
-      setCourseMaterialsNeeded(data.materialsNeeded);
+      setMaterialsNeeded(data.materialsNeeded);
     })
     .catch((err) => console.log(err));
   }, [context, id]);
@@ -73,10 +73,10 @@ const UpdateCourse = ({ context }) => {
       estimatedTime: estimatedTime,
       materialsNeeded: materialsNeeded,
       userId: authUser.userId,
-    }
+    };
   
     context.data.updateCourse(body, authUser.email, authUser.password, id)
-    .then(() => {navigate("/")});
+    .then(() => {navigate("/");});
   };
 
 
@@ -114,7 +114,7 @@ const handleSubmit = (e) => { // eslint-disable-line
     setTitle(e.target.value);
     setDescription(e.target.value);
     setEstimatedTime(e.target.value);
-    setCourseMaterialsNeeded(e.target.value);
+    setMaterialsNeeded(e.target.value);
   };
 
   return (
@@ -151,17 +151,14 @@ const handleSubmit = (e) => { // eslint-disable-line
               value={title}
               onChange = {e => setTitle(e.target.value)} />
             <label htmlFor="courseDescription">Course Description</label>
-            <textarea id="courseDescription" className="courseDescription" value = {description} onChange={e => setDescription(e.target.value)} ></textarea>
+            <textarea id="courseDescription" className="courseDescription" value= {description} onChange={e => setDescription(e.target.value)} ></textarea>
           </div>
           <div>
             <label htmlFor="estimatedTime">Estimated Time</label>
-            <input id="estimatedTime"
-              className="estimatedTime"
-              type="text"
-              value = {estimatedTime} 
+            <input id="estimatedTime" className="estimatedTime" type="text" value= {estimatedTime} 
               onChange = {e => setEstimatedTime(e.target.value)} />
             <label htmlFor="materialsNeeded">Materials Needed</label>
-            <textarea id="materialsNeeded" className="materialsNeeded" value={materialsNeeded} onChange = {e => setCourseMaterialsNeeded(e.target.value)}></textarea>
+            <textarea id="materialsNeeded" className="materialsNeeded" type="text" value={materialsNeeded} onChange= {e => setMaterialsNeeded(e.target.value)}></textarea>
           </div>
         </div>
         <button className="button" type="submit">Update Course</button>

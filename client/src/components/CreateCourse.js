@@ -11,8 +11,8 @@ const CreateCourse = ({ context }) => {
   const {authUser} = useContext(UserContext);
   const [title, setTitle] = useState(""); // eslint-disable-line
   const [estimatedTime, setEstimatedTime] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
-  const [materialsNeeded, setCourseMaterialsNeeded] = useState("");
+  const [description, setDescription] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
     titleErr: "",
@@ -30,25 +30,15 @@ const CreateCourse = ({ context }) => {
         ...prev,
         titleErr: "Please provide a value for Title",
       }));
-    } else if (courseDescription.current.value === "") {
+    } else if (description.current.value === "") {
       setErrors((prev) => ({
         ...prev,
         descriptionErr: "Please provide a value for Description",
       }));
-      } else if (estimatedTime.current.value === "") {
-        setErrors((prev) => ({
-          ...prev,
-          estimatedTimeErr: "Please provide a value for Estimated Time",
-        }));    
-        } else if (materialsNeeded.current.value === "") {
-          setErrors((prev) => ({
-            ...prev,
-            materialsNeededErr: "Please provide a value for Materials Needed",
-          }));
-          } else {
+     } else {
           const body = {
       title: course,
-      description: courseDescription,
+      description: description,
       userId: 1,
       estimatedTime: estimatedTime,
       materialsNeeded: materialsNeeded
@@ -70,28 +60,24 @@ const CreateCourse = ({ context }) => {
                     </ul>
                 </div>
                 {errors && <div>
-        <p>Error</p></div>}
+        </div>}
         <form onSubmit={handleSubmit}>
           <div className="main--flex">
             <div>
               <label htmlFor="courseTitle">Course Title</label>
-              <input id="courseTitle" className="courseTitle" type="text" value={course} onChange = {e => setCourse(e.target.value)} />
-              <label htmlFor="courseDescription">Course Description</label>
-              <textarea id="courseDescription" className="courseDescription" type="text" value={courseDescription} onChange = {e => setCourseDescription(e.target.value)} > </textarea>
+              <input id="courseTitle" className="courseTitle" type="text" value={course} onChange= {e => setCourse(e.target.value)} />
+              <label htmlFor="description">Course Description</label>
+              <textarea id="description" className="description" type="text" value={description} onChange= {e => setDescription(e.target.value)} > </textarea>
             </div>
             <div> 
               <label htmlFor="estimatedTime">Estimated Time</label>
-              <input id="estimatedTime" className="estimatedTime" type="text" value={estimatedTime} onChange = {e => setEstimatedTime(e.target.value)} />
+              <input id="estimatedTime" className="estimatedTime" type="text" value={estimatedTime} onChange= {e => setEstimatedTime(e.target.value)} />
               <label htmlFor="materialsNeeded">Materials Needed</label>
-              <textarea id="materialsNeeded" className="materialsNeeded" type="text" value={materialsNeeded} onChange = {e => setCourseMaterialsNeeded(e.target.value)} ></textarea>
+              <textarea id="materialsNeeded" className="materialsNeeded" type="text" value={materialsNeeded} onChange= {e => setMaterialsNeeded(e.target.value)} ></textarea>
             </div>
           </div>
-          <button className="button" type="submit">
-            Create Course
-          </button>
-          <button
-            className="button button-secondary"
-            onClick={e => {e.preventDefault(); navigate('/');}}>Cancel</button>
+          <button className="button" type="submit">Create Course</button>
+          <button className="button button-secondary" onClick={e => {e.preventDefault(); navigate('/');}}>Cancel</button>
         </form>
       </div>
     </main>
