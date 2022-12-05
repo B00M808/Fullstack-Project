@@ -96,31 +96,13 @@ const UserSignUp = ({ context }) => {
         <label htmlFor="lastName">Last Name</label>
         <input id="lastName" name="lastName" type="text" ref={lastName} />
         <label htmlFor="emailAddress">Email Address</label>
-        <input
-          id="emailAddress"
-          name="emailAddress"
-          type="email"
-          ref={emailAddress}
-        />
+        <input id="emailAddress" name="emailAddress" type="email" ref={emailAddress} />
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" ref={password} />
-        <button className="button" type="submit">
-          Sign Up
-        </button>
-        <button
-          className="button button-secondary"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/");
-          }}
-        >
-          Cancel
-        </button>
+        <button className="button" type="submit">Sign Up</button>
+        <button className="button button-secondary"onClick={(e) => {e.preventDefault(); navigate("/");}} >Cancel</button>
       </form>
-      <p>
-        Already have a user account? Click here to{" "}
-        <Link to="/sign-in">sign in</Link>!
-      </p>
+      <p>Already have a user account? Click here to{" "}<Link to="/sign-in">sign in</Link>!</p>
     </div>
   );
 };

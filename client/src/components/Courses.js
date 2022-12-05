@@ -2,18 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /* 
-Create the following stateful components:
-Courses - This component provides the "Courses" screen by retrieving the list of courses from the REST API's /api/courses route and rendering a list of courses. Each course needs to link to its respective "Course Detail" screen. This component also renders a link to the "Create Course" screen.
+This component provides the "Courses" screen by retrieving the list of courses from the REST API's /api/courses route and rendering a list of courses. Each course needs to link to its respective "Course Detail" screen. This component also renders a link to the "Create Course" screen.
 //Mounted
-//Statefull
 */
-/* 
-      */
-
 const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
   
-  //Calling function
+  //Calling function, fetching data from the api
   useEffect(() => {
     // already stored the user information in session storage when the user signs in, from that getting email
     context.data.getCourses()

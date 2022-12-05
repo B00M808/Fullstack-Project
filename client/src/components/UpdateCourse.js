@@ -84,8 +84,7 @@ const UpdateCourse = ({ context }) => {
 //function is creating the body, and sign in needed to call the update course
 const handleSubmit = (e) => { // eslint-disable-line
   e.preventDefault(); 
-
-}
+};
     // context.data
     //   .updateCourse(
     //     course,
@@ -143,20 +142,14 @@ const handleSubmit = (e) => { // eslint-disable-line
       <form onSubmit={handleUpdate}>
         <div className="main--flex">
           <div>
-            <label htmlFor="courseTitle">Course Title</label>
-            <input
-              id="courseTitle"
-              className="courseTitle"
-              type="text"
-              value={title}
-              onChange = {e => setTitle(e.target.value)} />
-            <label htmlFor="courseDescription">Course Description</label>
-            <textarea id="courseDescription" className="courseDescription" value= {description} onChange={e => setDescription(e.target.value)} ></textarea>
+            <label htmlFor="title">Course Title</label>
+            <input id="title" className="title" type="text" value={title} onChange= {e => setTitle(e.target.value)} />
+            <label htmlFor="description">Course Description</label>
+            <textarea id="description" className="description" type="text" value={description} onChange={e => setDescription(e.target.value)} ></textarea>
           </div>
           <div>
             <label htmlFor="estimatedTime">Estimated Time</label>
-            <input id="estimatedTime" className="estimatedTime" type="text" value= {estimatedTime} 
-              onChange = {e => setEstimatedTime(e.target.value)} />
+            <input id="estimatedTime" className="estimatedTime" type="text" value={estimatedTime} onChange= {e => setEstimatedTime(e.target.value)} />
             <label htmlFor="materialsNeeded">Materials Needed</label>
             <textarea id="materialsNeeded" className="materialsNeeded" type="text" value={materialsNeeded} onChange= {e => setMaterialsNeeded(e.target.value)}></textarea>
           </div>

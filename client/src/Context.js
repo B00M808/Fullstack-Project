@@ -11,7 +11,7 @@ export class Provider extends Component {
   constructor() {
     super();
     this.data = new Data();
-//Working with the Sign In then statement will be true
+//Working with the Sign In, then the statement will be true
     this.state = {
       authenticatedUser: null,
     };

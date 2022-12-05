@@ -10,16 +10,8 @@ CourseDetail - This component provides the "Course Detail" screen by retrieving 
 There's an authenticated user.
 The authenticated user's ID matches that of the user who owns the course.
 
-//Statefull
 //Mount to catch course details
 //See Step 9 Restrict access to updating and deleting courses
-//See Step 11 Add support for rendering markdown formatted text
-/The "Course Detail" screen renders the course description and materialsNeeded properties as markdown formatted text. 
-
-
-On the "Course Detail" screen, add rendering logic so that the "Update Course" and "Delete Course" buttons only display if:
-There's an authenticated user.
-And the authenticated user's ID matches that of the user who owns the course.
 */
 
 //State setup
@@ -78,8 +70,8 @@ const CourseDetail = ({ context }) => {
               <h4 className="course--name">{course?.title}</h4>
               <p>
                 by {course?.User?.firstName} {course?.User?.lastName}
-              </p>
-              <ReactMarkdown children={course?.description} />
+             </p> 
+              <ReactMarkdown children={course?.description} /> {/* Created added support for rendering markdown formatted text */}
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
@@ -87,7 +79,7 @@ const CourseDetail = ({ context }) => {
 
               <h3 className="course--detail--title">Materials Needed</h3>
               <div className="course--detail--list">
-                <ReactMarkdown children={course?.materialsNeeded} />
+                <ReactMarkdown children={course?.materialsNeeded} />  {/*Created added support for rendering markdown formatted text */}
               </div>
             </div>
           </div>

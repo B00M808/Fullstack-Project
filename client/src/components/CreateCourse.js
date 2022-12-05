@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
 
 // This component provides the "Create Course" screen by rendering a form that allows a user to create a new course. 
-// Display validation errors
-// ****Update the "Sign Up", "Create Course", and "Update Course" screens to display validation errors returned from the REST API.
 
 const CreateCourse = ({ context }) => {
   const [course, setCourse] = useState("");
@@ -64,8 +62,8 @@ const CreateCourse = ({ context }) => {
         <form onSubmit={handleSubmit}>
           <div className="main--flex">
             <div>
-              <label htmlFor="courseTitle">Course Title</label>
-              <input id="courseTitle" className="courseTitle" type="text" value={course} onChange= {e => setCourse(e.target.value)} />
+              <label htmlFor="title">Course Title</label>
+              <input id="title" className="title" type="text" value={course} onChange= {e => setCourse(e.target.value)} />
               <label htmlFor="description">Course Description</label>
               <textarea id="description" className="description" type="text" value={description} onChange= {e => setDescription(e.target.value)} > </textarea>
             </div>
