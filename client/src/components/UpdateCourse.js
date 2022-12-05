@@ -8,6 +8,7 @@ The component renders a form allowing a user to update one of their existing cou
 
 const UpdateCourse = ({ context }) => {
   console.log(context);
+  //Once information is retrieved, storing the data in the state
   const [course, setCourse] = useState(""); // eslint-disable-line
   const { authUser } = useContext(UserContext);
   console.log(context);
@@ -16,66 +17,79 @@ const UpdateCourse = ({ context }) => {
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   //Stores errors returned from REST API
+  const [isError, setIsError] = useState(false);
   const [errors, setErrors] = useState({
-    // eslint-disable-line
     titleErr: "",
     descriptionErr: "",
-    estimatedTimeErr: "",
-    materialsNeededErr: "",
   });
 
+  //Gives the details of the course by utilizing the get course method which ties into data.js
   const { id } = useParams(); // eslint-disable-line
   const navigate = useNavigate();
   useEffect(() => {
     context.data
-      .getCourse(id)
+      .getCourse(id) 
       .then((data) => {
         console.log(data);
         setCourse(data);
-        // setTitle(data.title);
-        // setDescription(data.description);
-        // setEstimatedTime(data.estimatedTime);
-        // setMaterialsNeeded(data.materialsNeeded);
       })
+      //Every time the id changes in the url/the context changes, the useEffect will run again
       .catch((err) => console.log(err));
   }, [context, id]);
 
+  //Form handling, when the form is submitted
   const handleUpdate = (e) => {
     // eslint-disable-line
     e.preventDefault();
-    navigate(`/courses/${id}`);
+    // navigate(`/courses/${id}`);
 
+    //Checking if state value is empty when the user submits, a message error pops up
+    //(prevState) is utlized as a destructing method to manage the various states, extracting only what is needed  
     if (title === "") {
-      setErrors((prev) => ({
-        ...prev,
-        titleErr: "Please provide a value for Title",
+      setErrors((prevState) => ({
+        ...prevState,
+        titleErr: `Please provide a value for "Title"`,
       }));
-    } else if (description === "") {
-      setErrors((prev) => ({
-        ...prev,
-        descriptionErr: "Please provide a value for Description",
-      }));
-    } else if (estimatedTime === "") {
-      setErrors((prev) => ({
-        ...prev,
-        estimatedTimeErr: "Please provide a value for Estimated Time",
-      }));
-    } else if (materialsNeeded === "") {
-      setErrors((prev) => ({
-        ...prev,
-        materialsNeededErr: "Please provide a value for Materials Needed",
-      }));
+      setIsError(true); //whenever user does not submit something, error is triggered
     } else {
-      console.log(errors)
-      const body = {
-        id: 1,
-        title: title,
-        description: description,
-        estimatedTime: estimatedTime,
-        materialsNeeded: materialsNeeded,
-        userId: authUser.userId,
-      };
+      setErrors((prevState) => ({
+        ...prevState,
+        titleErr: "", //when user submits text, goes back to empty
+      }));
+      setIsError(false); //when user submits text, no errors are evoked
+    }
 
+    //Checking if state value is empty when the user submits, a message error pops up
+
+    if (description === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        descriptionErr: `Please provide a value for "Description"`,
+      }));
+      setIsError(true); //whenever user does not submit something, error is triggered
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        descriptionErr: "", //when user submits text, goes back to empty
+      }));
+      setIsError(false); //when user submits text, no errors are evoked
+    }
+
+//Stored values making them into objects
+    const body = {
+      id: 1,
+      title: title,
+      description: description,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded,
+      userId: authUser.userId,
+    };
+
+  //Checking if any value is still empty
+    if (body.title === "" || body.description === "") {
+      console.log("empty values");
+    } else {
+      //if not empty, the values passed in makes a request to Context/Data (PUT)
       context.data
         .updateCourse(body, authUser.email, authUser.password, id)
         .then(() => {
@@ -83,26 +97,26 @@ const UpdateCourse = ({ context }) => {
         });
     }
   };
-    //Redirects to the Course Detail page
-    const handleCancel = (e) => {
-      e.preventDefault();
-      navigate(`/courses/${id}`);
-    };
+  //Redirects to the Course Detail page
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/courses/${id}`);
+  };
 
+  //Checking code block if state is true or false, Validation Errors
   return (
     <div className="wrap">
       <h2>Update Course</h2>
-      {errors && (
-      <div className="validation--errors">
+      {isError && (
+        <div className="validation--errors">
           <h3>Validation Errors</h3>
           <ul>
-              <li>Please provide a value for "Title"</li>
-              <li>Please provide a value for "Description"</li>
+            {errors.titleErr && <li>{errors.titleErr}</li>} 
+            {errors.descriptionErr && <li>{errors.descriptionErr}</li>}
           </ul>
-      </div>
-        )}
+        </div>
+      )}
 
-       
       <form onSubmit={handleUpdate}>
         <div className="main--flex">
           <div>

@@ -2,11 +2,10 @@ import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 /*
-*****The "Sign Up" displays validation errors returned from the REST API.
+The "Sign Up" displays validation errors returned from the REST API.
 navigate("/") setErr (Sign-In Was unsuccessful), otherwise nav back to root, catch error
-
-The "Sign Up", "Create Course", and "Update Course" screens display validation errors returned from the REST API.
 */
+
 //Allows a user to sign up by creating a new account or displays validation errors
 const UserSignUp = ({ context }) => {
   const [errors, setErrors] = useState({
@@ -15,6 +14,7 @@ const UserSignUp = ({ context }) => {
     emailAddressErr: "",
     passwordErr: "",
   });
+  const [isError, setIsError] = useState(false);
 
   const firstName = useRef(null);
   const lastName = useRef(null);
@@ -22,83 +22,115 @@ const UserSignUp = ({ context }) => {
   const password = useRef(null); // eslint-disable-line
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+    //Form handling, when the form is submitted
+  const handleSubmit = (e) => {
     e.preventDefault();
-    //Validation Errors
+    
+    //Checking if state value is empty when the user submits, a message error pops up
+    //(prevState) is utlized as a destructing method to manage the various states, extracting only what is needed 
     if (firstName.current.value === "") {
-      setErrors({
-        ...errors,
-        firstNameErr: "Please provide a value for First Name",
-      });
+      setErrors((prevState) => ({
+        ...prevState,
+        firstNameErr: "Please provide a value for First Name"
+      })
+      );
+      setIsError(true); //whenever user does not submit something, error is triggered
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        firstNameErr: "" //when user submits text, goes back to empty
+      })
+      );
+      setIsError(false);
     }
     if (lastName.current.value === "") {
-      setErrors({
-        ...errors,
-        lastNameErr: "Please provide a value for First Name",
-      });
+      setErrors((prevState) => ({
+        ...prevState,
+        lastNameErr: "Please provide a value for Last Name"
+      })
+      );
+      setIsError(true); //whenever user does not submit something, error is triggered
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        lastNameErr: "" //when user submits text, goes back to empty
+      })
+      );
+      setIsError(false); //when user submits text, no errors are evoked
     }
     if (emailAddress.current.value === "") {
-      setErrors({
-        ...errors,
-        emailAddressErr: "Please provide a value for First Name",
-      });
+      setErrors((prevState) => ({
+        ...prevState,
+        emailAddressErr: "Please provide a value for Email Address"
+      })
+      );
+      setIsError(true); //whenever user does not submit something, error is triggered
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        emailAddressErr: "" //when user submits text, goes back to empty
+      })
+      );
+      setIsError(false); //when user submits text, no errors are evoked
     }
     if (password.current.value === "") {
-      setErrors({
-        ...errors,
-        passwordErr: "Please provide a value for First Name",
-      });
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordErr: "Please provide a value for Password"
+      })
+      );
+      setIsError(true); //whenever user does not submit something, error is triggered
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        passwordErr: "" //when user submits text, goes back to empty
+      })
+      );
+      setIsError(false); //when user submits text, no errors are evoked
     }
-    // if (Object.values(errors).every((err) => (err = ""))) {
-    //   const user = {
-    //     firstName: firstName.current.value,
-    //     lastName: lastName.current.value,
-    //     emailAddress: emailAddress.current.value,
-    //     password: password.current.value,
-    //   };
-    //   //Redirecting to the main public page
-    //   console.log(user);
-    //   context.data
-    //     .createUser(user)
-    //     .then((data) => {
-    //       navigate("/");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
-    console.log(errors);
-  };
+    //Stored values making them into objects
+        console.log(isError)
+        const user = {
+          firstName: firstName.current.value,
+          lastName: lastName.current.value,
+          emailAddress: emailAddress.current.value,
+          password: password.current.value,
+        };
 
+          //Checking if any value is still empty, requesting credentials
+        if(user.firstName === "" || user.lastName === "" || user.emailAddress === "" || user.password === "") {
+          console.log("Please enter values")
+        } else {
+          context.data
+          .createUser(user)
+          .then((data) => {
+            navigate("/");  //Redirecting to the main public page
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+        console.log(user);
+        
+      console.log(errors);
+
+    
+  };
+//Checking code block if state is true or false, Validation Errors, nested errors
   return (
     <div className="form--centered">
-      <div class="validation--errors">
+      {isError && 
+        <div className="validation--errors">
         <h3>Validation Errors</h3>
         <ul>
-          {errors.firstNameErr.length >=0 && <li>Please provide a value for "Title"</li> }
-          {errors.lastNameErr.length >=0 && <li>Please provide a value for "Last Name"</li> }
+          {errors.firstNameErr && <li>{errors.firstNameErr}</li> }
+          {errors.lastNameErr && <li>{errors.lastNameErr}</li> }
+          {errors.emailAddressErr && <li>{errors.emailAddressErr}</li> }
+          {errors.passwordErr && <li>{errors.passwordErr}</li> }
         </ul>
       </div>
-      {/* {errors && (
-        <div>
-          <p>{errors?.firstNameErr}</p>
-        </div>
-      )}
-      {errors && (
-        <div>
-          <p>{errors?.lastNameErr}</p>
-        </div>
-      )}
-      {errors && (
-        <div>
-          <p>{errors?.emailAddressErr}</p>
-        </div>
-      )}
-      {errors && (
-        <div>
-          <p>{errors?.passwordErr}</p>
-        </div>
-      )} */}
+      }
+      
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>

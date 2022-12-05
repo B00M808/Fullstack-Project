@@ -5,13 +5,6 @@ import { UserContext } from "../App";
 
 /* 
 CourseDetail - This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. The component also renders a "Delete Course" button that when clicked should send a DELETE request to the REST API's /api/courses/:id route in order to delete a course. This component also renders an "Update Course" button for navigating to the "Update Course" screen.
-
-//The CourseDetail component only renders the "Update Course" and "Delete Course" buttons if:
-There's an authenticated user.
-The authenticated user's ID matches that of the user who owns the course.
-
-//Mount to catch course details
-//See Step 9 Restrict access to updating and deleting courses
 */
 
 //State setup
@@ -20,7 +13,7 @@ const CourseDetail = ({ context }) => {
   const { authUser } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  
   //Fetch course from the database
   useEffect(() => {
     context.data
@@ -32,7 +25,7 @@ const CourseDetail = ({ context }) => {
     .catch((err) => console.log(err));
   }, []); // eslint-disable-line
 
-  //get delete function
+  //get delete function, navigates back to main page
   const handleDelete = async (id) => {
     await context.data.deleteCourse(id, authUser.email, authUser.password)
     .then(() => {navigate("/")});

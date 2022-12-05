@@ -5,18 +5,20 @@ import Data from "./Data";
 //Provider allows its child components to gain access, value represents an object containing the context to be shared throughout the component tree.
   */
 
-//Passed context to the Provider,Create a value object to provide the utility methods of the class Data. 
+//Passed context to the Provider, created a value object to provide the utility methods of the class Data
 const Context = React.createContext();
 export class Provider extends Component {
   constructor() {
     super();
     this.data = new Data();
+
 //Working with the Sign In, then the statement will be true
     this.state = {
       authenticatedUser: null,
     };
   }
 
+  //directs an auth user
   render() {
     const { authenticatedUser } = this.state;
     const value = {

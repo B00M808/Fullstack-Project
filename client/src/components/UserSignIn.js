@@ -21,11 +21,12 @@ const UserSignIn = ({ context }) => {
       .signIn(emailAddress.current.value, password.current.value)
       .then(data => {
         console.log(data)
-        setAuth(true)
+        if(data.userId) {
+          setAuth(true)
+        }
         setAuthUser({userId: data.userId,email: data.emailAddress, password: data.password})
         navigate("/")
       })
-      // console.log(emailAddress.current.value);
     };
   
   return (
