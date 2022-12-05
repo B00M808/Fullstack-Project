@@ -61,7 +61,6 @@ const CreateCourse = ({ context }) => {
       materialsNeeded: materialsNeeded,
     };
     if (body.title === "" || body.description === "") {
-      console.log("empty values");
     } else {
       await context.data
         .createCourse(body, authUser.email, authUser.password)

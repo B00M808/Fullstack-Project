@@ -62,7 +62,6 @@ app.set('port', process.env.PORT || 5000);
   try {
     await Sequelize.sync();
     await Sequelize.authenticate();
-    console.log("Connection to the database successful!");
   } catch (error) {
     console.error("Error connecting to the database: ", error);
   }

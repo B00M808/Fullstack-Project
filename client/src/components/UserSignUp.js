@@ -89,7 +89,6 @@ const UserSignUp = ({ context }) => {
       setIsError(false); //when user submits text, no errors are evoked
     }
     //Stored values making them into objects
-        console.log(isError)
         const user = {
           firstName: firstName.current.value,
           lastName: lastName.current.value,
@@ -99,7 +98,6 @@ const UserSignUp = ({ context }) => {
 
           //Checking if any value is still empty, requesting credentials
         if(user.firstName === "" || user.lastName === "" || user.emailAddress === "" || user.password === "") {
-          console.log("Please enter values")
         } else {
           context.data
           .createUser(user)
@@ -107,12 +105,9 @@ const UserSignUp = ({ context }) => {
             navigate("/");  //Redirecting to the main public page
           })
           .catch((err) => {
-            console.log(err);
           });
         }
-        console.log(user);
-        
-      console.log(errors);
+      
 
     
   };

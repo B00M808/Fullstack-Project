@@ -13,7 +13,6 @@ const Courses = ({ context }) => {
     // already stored the user information in session storage when the user signs in, from that getting email
     context.data.getCourses()
       .then((data) => {
-        console.log(data);
         setCourses(data)
         // }
       })

@@ -20,7 +20,6 @@ const UserSignIn = ({ context }) => {
     await context.actions
       .signIn(emailAddress.current.value, password.current.value)
       .then(data => {
-        console.log(data)
         if(data.userId) {
           setAuth(true)
         }

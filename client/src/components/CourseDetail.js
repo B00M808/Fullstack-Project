@@ -19,7 +19,6 @@ const CourseDetail = ({ context }) => {
     context.data
       .getCourse(id)
       .then((data) => {
-        console.log(data);
         setCourse(data);
       })
     .catch((err) => console.log(err));

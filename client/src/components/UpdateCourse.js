@@ -7,11 +7,9 @@ The component renders a form allowing a user to update one of their existing cou
 */
 
 const UpdateCourse = ({ context }) => {
-  console.log(context);
   //Once information is retrieved, storing the data in the state
   const [course, setCourse] = useState(""); // eslint-disable-line
   const { authUser } = useContext(UserContext);
-  console.log(context);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -30,7 +28,6 @@ const UpdateCourse = ({ context }) => {
     context.data
       .getCourse(id) 
       .then((data) => {
-        console.log(data);
         setCourse(data);
       })
       //Every time the id changes in the url/the context changes, the useEffect will run again
@@ -87,7 +84,6 @@ const UpdateCourse = ({ context }) => {
 
   //Checking if any value is still empty
     if (body.title === "" || body.description === "") {
-      console.log("empty values");
     } else {
       //if not empty, the values passed in makes a request to Context/Data (PUT)
       context.data
