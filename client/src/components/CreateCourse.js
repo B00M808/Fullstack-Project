@@ -34,7 +34,7 @@ const CreateCourse = ({ context }) => {
         descriptionErr: "Please provide a value for Description",
       }));
      } else {
-          const body = {
+      const body = {
       title: course,
       description: description,
       userId: 1,

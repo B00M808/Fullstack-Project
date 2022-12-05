@@ -14,7 +14,7 @@ const UserSignUp = ({ context }) => {
     lastNameErr: "",
     emailAddressErr: "",
     passwordErr: "",
-  }); 
+  });
 
   const firstName = useRef(null);
   const lastName = useRef(null);
@@ -24,52 +24,62 @@ const UserSignUp = ({ context }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-//Validation Errors
+    //Validation Errors
     if (firstName.current.value === "") {
-      setErrors((prev) => ({
-        ...prev,
+      setErrors({
+        ...errors,
         firstNameErr: "Please provide a value for First Name",
-      }));
-    } else if (lastName.current.value === "") {
-      setErrors((prev) => ({
-        ...prev,
-        lastNameErr: "Please provide a value for Last Name",
-      }));
-      } else if (emailAddress.current.value === "") {
-        setErrors((prev) => ({
-          ...prev,
-          emailAddressErr: "Please provide a value for Email Address",
-        }));    
-        } else if (password.current.value === "") {
-          setErrors((prev) => ({
-            ...prev,
-            passwordErr: "Please provide a value for Password",
-          }));
-          } else {
-      const user = {
-        firstName: firstName.current.value,
-        lastName: lastName.current.value,
-        emailAddress: emailAddress.current.value,
-        password: password.current.value,
-      };
-//Redirecting to the main public page
-      console.log(user);
-      context.data
-        .createUser(user)
-        .then((data) => {
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(err);
-          setErrors(err);
-        });
+      });
     }
+    if (lastName.current.value === "") {
+      setErrors({
+        ...errors,
+        lastNameErr: "Please provide a value for First Name",
+      });
+    }
+    if (emailAddress.current.value === "") {
+      setErrors({
+        ...errors,
+        emailAddressErr: "Please provide a value for First Name",
+      });
+    }
+    if (password.current.value === "") {
+      setErrors({
+        ...errors,
+        passwordErr: "Please provide a value for First Name",
+      });
+    }
+    // if (Object.values(errors).every((err) => (err = ""))) {
+    //   const user = {
+    //     firstName: firstName.current.value,
+    //     lastName: lastName.current.value,
+    //     emailAddress: emailAddress.current.value,
+    //     password: password.current.value,
+    //   };
+    //   //Redirecting to the main public page
+    //   console.log(user);
+    //   context.data
+    //     .createUser(user)
+    //     .then((data) => {
+    //       navigate("/");
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
+    console.log(errors);
   };
 
   return (
     <div className="form--centered">
-      {errors && (
+      <div class="validation--errors">
+        <h3>Validation Errors</h3>
+        <ul>
+          {errors.firstNameErr.length >=0 && <li>Please provide a value for "Title"</li> }
+          {errors.lastNameErr.length >=0 && <li>Please provide a value for "Last Name"</li> }
+        </ul>
+      </div>
+      {/* {errors && (
         <div>
           <p>{errors?.firstNameErr}</p>
         </div>
@@ -88,7 +98,7 @@ const UserSignUp = ({ context }) => {
         <div>
           <p>{errors?.passwordErr}</p>
         </div>
-      )}
+      )} */}
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
@@ -96,13 +106,31 @@ const UserSignUp = ({ context }) => {
         <label htmlFor="lastName">Last Name</label>
         <input id="lastName" name="lastName" type="text" ref={lastName} />
         <label htmlFor="emailAddress">Email Address</label>
-        <input id="emailAddress" name="emailAddress" type="email" ref={emailAddress} />
+        <input
+          id="emailAddress"
+          name="emailAddress"
+          type="email"
+          ref={emailAddress}
+        />
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" ref={password} />
-        <button className="button" type="submit">Sign Up</button>
-        <button className="button button-secondary"onClick={(e) => {e.preventDefault(); navigate("/");}} >Cancel</button>
+        <button className="button" type="submit">
+          Sign Up
+        </button>
+        <button
+          className="button button-secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+        >
+          Cancel
+        </button>
       </form>
-      <p>Already have a user account? Click here to{" "}<Link to="/sign-in">sign in</Link>!</p>
+      <p>
+        Already have a user account? Click here to{" "}
+        <Link to="/sign-in">Sign In</Link>!
+      </p>
     </div>
   );
 };

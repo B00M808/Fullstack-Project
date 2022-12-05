@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+//Components are set up
 import CourseDetail from "./components/CourseDetail";
 import Courses from "./components/Courses";
 import CreateCourse from "./components/CreateCourse";
@@ -21,6 +22,7 @@ const UserSignUpWithContext = withContext(UserSignUp);
 const CreateCoursewithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 
+//Managed global state by utilizing the React Context API. Authenticated user and the user sign in and sign out methods get defined by using the Context API <Provider> component
 export const UserContext = createContext();
 const App = () => {
   const [auth, setAuth] = useState(false);
@@ -30,7 +32,8 @@ const App = () => {
       <BrowserRouter>
         <Provider>
           <HeaderWithContext />
-          <Routes>
+          {/*Necessary Routes are Set Up*/}
+          <Routes> 
             <Route path="/" element={<CoursesWithContext />} />
             {/* Private Routes */}
             <Route path="courses/:id" element={<PrivateRoute Component={CourseDetailWithContext} />} />
@@ -40,10 +43,7 @@ const App = () => {
               path="/courses/create/new"
               element={<PrivateRoute Component={CreateCoursewithContext} />}
             />
-            <Route
-              path="courses/:id/update"
-              element={<PrivateRoute Component={UpdateCourseWithContext} />}
-            />
+            <Route path="courses/:id/update" element={<PrivateRoute Component={UpdateCourseWithContext} />}/>
             {/* <Route element={withContext(PrivateRoute)} /> */}
             <Route path="/signin" element={<UserSignInWithContext />} />
             <Route path="/signout" element={<UserSignOutWithContext />} />

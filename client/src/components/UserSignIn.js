@@ -37,12 +37,8 @@ const UserSignIn = ({ context }) => {
           <input id="emailAddress" name="emailAddress" type="email" defaultValue="" ref={emailAddress} />
           <label htmlFor="password">Password</label>
           <input id="password" name="password" type="password" defaultValue="" ref={password} />
-          <button className="button" type="submit">
-            Sign In
-          </button>
-          <Link className="button button-secondary" to="/">
-            Cancel
-          </Link>
+          <button className="button" type="submit">Sign In</button>
+          <Link className="button button-secondary" to="/">Cancel</Link>
         </form>
         <p>
           Don't have a user account? Click here to <Link to="/signup">Sign Up</Link>!
