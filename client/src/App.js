@@ -35,8 +35,8 @@ const App = () => {
           {/*Necessary Routes are Set Up*/}
           <Routes> 
             <Route path="/" element={<CoursesWithContext />} />
+            <Route path="courses/:id" element={<CourseDetailWithContext/>} />
             {/* Private Routes */}
-            <Route path="courses/:id" element={<PrivateRoute Component={CourseDetailWithContext} />} />
             <Route path="courses/create" element={<PrivateRoute Component={CourseDetailWithContext} />} />
             {/* <Route path="courses/:id" element={Authenticateduser && <CourseDetailWithContext/>} /> */}
             <Route

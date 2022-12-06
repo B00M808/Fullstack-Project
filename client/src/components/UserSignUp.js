@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 /*
 The "Sign Up" displays validation errors returned from the REST API.
@@ -8,6 +9,7 @@ navigate("/") setErr (Sign-In Was unsuccessful), otherwise nav back to root, cat
 
 //Allows a user to sign up by creating a new account or displays validation errors
 const UserSignUp = ({ context }) => {
+  const {setAuth, setAuthUser} = useContext(UserContext);
   const [errors, setErrors] = useState({
     firstNameErr: "",
     lastNameErr: "",
@@ -102,14 +104,21 @@ const UserSignUp = ({ context }) => {
           context.data
           .createUser(user)
           .then((data) => {
-            navigate("/");  //Redirecting to the main public page
+            context.actions
+            .signIn(user.emailAddress, user.password)
+            .then(data => {
+              if(data.userId) {
+                setAuth(true)
+              }
+              setAuthUser({userId: data.userId,email: data.emailAddress, password: data.password})
+              navigate("/")
+            })
           })
           .catch((err) => {
+            console.log(err)
           });
         }
       
-
-    
   };
 //Checking code block if state is true or false, Validation Errors, nested errors
   return (
@@ -156,7 +165,7 @@ const UserSignUp = ({ context }) => {
       </form>
       <p>
         Already have a user account? Click here to{" "}
-        <Link to="/sign-in">Sign In</Link>!
+        <Link to="/signin">Sign In</Link>!
       </p>
     </div>
   );
